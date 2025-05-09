@@ -1,0 +1,17 @@
+{
+  "key": "DUMMY-123",
+  "summary": "Shopping cart UI flow",
+  "description": "When the user visits https://www.saucedemo.com and logs in with the demo credentials, they should be able to add products to the cart. When clicking the cart icon, all selected products should appear.",
+  "customfields": {
+      "url": "https://www.saucedemo.com/",
+      "steps": [
+        "Go to https://www.saucedemo.com",
+        "Enter username: standard_user",
+        "Enter password: secret_sauce",
+        "Click login",
+        "Click “Add to cart” on any item",
+        "Click the cart icon",
+        "Assert item is visible in the cart"
+      ]
+  }
+}
