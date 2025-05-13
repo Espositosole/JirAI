@@ -2,3 +2,12 @@ jira
 playwright
 openai>=1.0.0
 python-dotenv
+flask
+flask-cors
+gunicorn  # for production deploymentjira
+playwright
+openai>=1.0.0
+python-dotenv
+flask
+flask-cors
+gunicorn  # for production deployment

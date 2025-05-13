@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jira Automation Agent Settings</title>
+    <style>
+        body { width: 500px; margin: 20px; }
+        input { width: 100%; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h2>Jira Automation Agent Settings</h2>
+    <label for="backendUrl">Backend Agent URL:</label>
+    <input type="text" id="backendUrl" placeholder="http://localhost:5000/trigger-agent">
+    
+    <label for="jiraDomain">Jira Domain:</label>
+    <input type="text" id="jiraDomain" placeholder="your-company.atlassian.net">
+    
+    <button id="saveSettings">Save Settings</button>
+    <script src="options.js"></script>
+</body>
+</html>

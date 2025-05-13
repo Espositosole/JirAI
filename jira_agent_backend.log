@@ -1,0 +1,20 @@
+2025-05-12 09:37:05,404 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-12 09:37:06,171 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.218:5000
+2025-05-12 09:37:06,172 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 09:37:06,174 - INFO -  * Restarting with stat
+2025-05-12 09:37:08,010 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-12 09:37:08,038 - WARNING -  * Debugger is active!
+2025-05-12 09:37:08,047 - INFO -  * Debugger PIN: 835-841-490
+2025-05-12 09:42:37,657 - INFO - 127.0.0.1 - - [12/May/2025 09:42:37] "GET /health HTTP/1.1" 200 -
+2025-05-12 09:42:37,693 - INFO - 127.0.0.1 - - [12/May/2025 09:42:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-12 09:50:57,827 - INFO - 127.0.0.1 - - [12/May/2025 09:50:57] "GET /health HTTP/1.1" 200 -
+2025-05-12 09:53:52,241 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\test_executor.py', reloading
+2025-05-12 09:53:52,380 - INFO -  * Restarting with stat
+2025-05-12 09:53:55,779 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-12 09:53:55,885 - WARNING -  * Debugger is active!
+2025-05-12 09:53:55,888 - INFO -  * Debugger PIN: 835-841-490
+2025-05-12 09:58:09,923 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\jira_reader.py', reloading
+2025-05-12 09:58:09,998 - INFO -  * Restarting with stat

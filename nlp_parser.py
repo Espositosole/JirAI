@@ -11,7 +11,7 @@ env_path = Path(__file__).resolve().parent.parent / "ai-jira-ui-tester/.env"
 print("[DEBUG] Using .env path:", env_path)
 load_dotenv(dotenv_path=env_path)
 print("[DEBUG] Loaded API Key:", os.getenv("OPENAI_API_KEY"))
-client = OpenAI(api_key="MYAPIKEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 SYSTEM_PROMPT = """
 You are an expert QA automation assistant. Given a user story, your job is to create multiple structured test flows.
