@@ -4,20 +4,27 @@
         "version": "1.0",
         "description": "Automatically triggers UI testing agent when stories reach QA",
         "permissions": [
-            "activeTab",
-            "storage",
+          "activeTab",
+          "storage",
+          "notifications"
+        ],
+        "host_permissions": [
             "https://*.atlassian.net/*"
         ],
         "background": {
             "service_worker": "background.js"
         },
         "content_scripts": [
-            {
-                "matches": ["https://*.atlassian.net/*"],
-                "js": ["content.js"]
-            }
+          {
+            "matches": ["https://*.atlassian.net/*"],
+            "js": ["content.js"],
+            "run_at": "document_idle"
+          }
         ],
         "action": {
             "default_popup": "popup.html"
-        }
+        },
+      "icons":{
+        "128": "icon.png"
+      }
     }

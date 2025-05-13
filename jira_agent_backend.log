@@ -18,3 +18,777 @@
 2025-05-12 09:53:55,888 - INFO -  * Debugger PIN: 835-841-490
 2025-05-12 09:58:09,923 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\jira_reader.py', reloading
 2025-05-12 09:58:09,998 - INFO -  * Restarting with stat
+2025-05-13 10:30:42,931 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 10:30:44,661 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-13 10:30:44,662 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-13 10:30:44,664 - INFO -  * Restarting with stat
+2025-05-13 10:30:46,585 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 10:30:46,628 - WARNING -  * Debugger is active!
+2025-05-13 10:30:46,634 - INFO -  * Debugger PIN: 835-841-490
+2025-05-13 12:42:53,099 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 12:42:54,401 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-13 12:42:54,402 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-13 12:42:54,404 - INFO -  * Restarting with stat
+2025-05-13 12:42:56,228 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 12:42:56,257 - WARNING -  * Debugger is active!
+2025-05-13 12:42:56,262 - INFO -  * Debugger PIN: 835-841-490
+2025-05-13 13:19:46,523 - INFO - 127.0.0.1 - - [13/May/2025 13:19:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:19:46,525 - INFO - 127.0.0.1 - - [13/May/2025 13:19:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:19:46,772 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:19:46,838 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:19:48,150 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:19:48,206 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:19:58,590 - INFO - 127.0.0.1 - - [13/May/2025 13:19:58] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:19:58,900 - INFO - 127.0.0.1 - - [13/May/2025 13:19:58] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:19:58,902 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:19:59,221 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:20:00,226 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:20:00,556 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:20:03,771 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:20:03,774 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:20:04,825 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:20:05,097 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:20:10,015 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:10,031 - INFO - Generated 3 test steps
+2025-05-13 13:20:14,949 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:14,956 - INFO - Generated 3 test steps
+2025-05-13 13:20:20,593 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:20,595 - INFO - Generated 3 test steps
+2025-05-13 13:20:23,640 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:23,645 - INFO - Generated 3 test steps
+2025-05-13 13:20:24,087 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:24,088 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:24,089 - INFO - 127.0.0.1 - - [13/May/2025 13:20:24] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:24,219 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:24,222 - INFO - Generated 3 test steps
+2025-05-13 13:20:25,295 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:25,297 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:25,299 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:25,299 - INFO - 127.0.0.1 - - [13/May/2025 13:20:25] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:25,300 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:25,302 - INFO - 127.0.0.1 - - [13/May/2025 13:20:25] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:26,476 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:26,476 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:26,477 - INFO - 127.0.0.1 - - [13/May/2025 13:20:26] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:26,905 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:26,906 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:26,907 - INFO - 127.0.0.1 - - [13/May/2025 13:20:26] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:30,255 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:20:30,261 - INFO - Generated 3 test steps
+2025-05-13 13:20:32,711 - INFO - Test execution completed with 3 results
+2025-05-13 13:20:32,711 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:20:32,712 - INFO - 127.0.0.1 - - [13/May/2025 13:20:32] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:20:46,239 - INFO - 127.0.0.1 - - [13/May/2025 13:20:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:20:46,242 - INFO - 127.0.0.1 - - [13/May/2025 13:20:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:20:46,503 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:20:46,553 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:20:47,786 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:20:48,209 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:20:50,116 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:20:50,423 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:20:51,212 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:20:52,097 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:20:52,538 - INFO - 127.0.0.1 - - [13/May/2025 13:20:52] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:20:52,540 - INFO - 127.0.0.1 - - [13/May/2025 13:20:52] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:20:52,854 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:20:52,855 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:20:54,198 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:20:54,252 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:21:07,808 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:07,813 - INFO - Generated 3 test steps
+2025-05-13 13:21:13,155 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:13,166 - INFO - Generated 3 test steps
+2025-05-13 13:21:13,231 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:13,233 - INFO - Generated 3 test steps
+2025-05-13 13:21:13,349 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:13,352 - INFO - Generated 3 test steps
+2025-05-13 13:21:14,785 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:14,785 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:14,787 - INFO - 127.0.0.1 - - [13/May/2025 13:21:14] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:15,092 - INFO - 127.0.0.1 - - [13/May/2025 13:21:15] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:21:15,397 - INFO - 127.0.0.1 - - [13/May/2025 13:21:15] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:21:15,561 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:15,561 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:15,563 - INFO - 127.0.0.1 - - [13/May/2025 13:21:15] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:15,696 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:15,697 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:15,697 - INFO - 127.0.0.1 - - [13/May/2025 13:21:15] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:15,708 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:21:15,882 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:21:16,197 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:16,198 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:16,198 - INFO - 127.0.0.1 - - [13/May/2025 13:21:16] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:16,880 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:16,883 - INFO - Generated 3 test steps
+2025-05-13 13:21:17,094 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:21:17,550 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:21:18,026 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:18,035 - INFO - Generated 3 test steps
+2025-05-13 13:21:19,106 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:19,107 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:19,109 - INFO - 127.0.0.1 - - [13/May/2025 13:21:19] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:20,459 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:20,459 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:20,460 - INFO - 127.0.0.1 - - [13/May/2025 13:21:20] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:38,472 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:38,481 - INFO - Generated 3 test steps
+2025-05-13 13:21:40,740 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:40,740 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:40,741 - INFO - 127.0.0.1 - - [13/May/2025 13:21:40] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:21:43,687 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:21:43,689 - INFO - Generated 3 test steps
+2025-05-13 13:21:45,952 - INFO - Test execution completed with 3 results
+2025-05-13 13:21:45,952 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:21:45,953 - INFO - 127.0.0.1 - - [13/May/2025 13:21:45] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:22:27,440 - INFO - 127.0.0.1 - - [13/May/2025 13:22:27] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:22:27,441 - INFO - 127.0.0.1 - - [13/May/2025 13:22:27] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:22:27,692 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:22:27,753 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:22:29,357 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:22:29,378 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:22:31,219 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:22:31,527 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:22:32,893 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:22:32,922 - INFO - 127.0.0.1 - - [13/May/2025 13:22:32] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:22:32,923 - INFO - 127.0.0.1 - - [13/May/2025 13:22:32] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:22:33,159 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:22:33,231 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:22:33,232 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:22:34,545 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:22:34,878 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:22:55,515 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:22:55,517 - INFO - Generated 3 test steps
+2025-05-13 13:22:55,988 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:22:55,993 - INFO - Generated 3 test steps
+2025-05-13 13:22:56,492 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:22:56,495 - INFO - Generated 3 test steps
+2025-05-13 13:22:57,231 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:22:57,236 - INFO - Generated 3 test steps
+2025-05-13 13:22:58,088 - INFO - Test execution completed with 3 results
+2025-05-13 13:22:58,088 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:22:58,090 - INFO - 127.0.0.1 - - [13/May/2025 13:22:58] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:22:58,402 - INFO - Test execution completed with 3 results
+2025-05-13 13:22:58,402 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:22:58,403 - INFO - 127.0.0.1 - - [13/May/2025 13:22:58] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:22:59,140 - INFO - Test execution completed with 3 results
+2025-05-13 13:22:59,141 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:22:59,142 - INFO - 127.0.0.1 - - [13/May/2025 13:22:59] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:22:59,176 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:22:59,183 - INFO - Generated 3 test steps
+2025-05-13 13:23:00,112 - INFO - Test execution completed with 3 results
+2025-05-13 13:23:00,112 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:23:00,113 - INFO - 127.0.0.1 - - [13/May/2025 13:23:00] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:23:01,180 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:23:01,182 - INFO - Generated 3 test steps
+2025-05-13 13:23:01,680 - INFO - Test execution completed with 3 results
+2025-05-13 13:23:01,681 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:23:01,682 - INFO - 127.0.0.1 - - [13/May/2025 13:23:01] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:23:03,654 - INFO - Test execution completed with 3 results
+2025-05-13 13:23:03,654 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:23:03,655 - INFO - 127.0.0.1 - - [13/May/2025 13:23:03] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:21,328 - INFO - 127.0.0.1 - - [13/May/2025 13:25:21] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:25:21,330 - INFO - 127.0.0.1 - - [13/May/2025 13:25:21] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:25:21,592 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:25:21,636 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:25:22,921 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:25:23,262 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:25:25,737 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:25:26,041 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:25:27,306 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:25:27,974 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:25:29,180 - INFO - 127.0.0.1 - - [13/May/2025 13:25:29] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:25:29,181 - INFO - 127.0.0.1 - - [13/May/2025 13:25:29] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:25:29,493 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:25:29,494 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:25:31,129 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:25:31,153 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:25:42,973 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:42,977 - INFO - Generated 3 test steps
+2025-05-13 13:25:45,589 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:45,590 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:45,591 - INFO - 127.0.0.1 - - [13/May/2025 13:25:45] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:47,633 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:47,645 - INFO - Generated 3 test steps
+2025-05-13 13:25:48,391 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:48,394 - INFO - Generated 3 test steps
+2025-05-13 13:25:48,403 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:48,410 - INFO - Generated 3 test steps
+2025-05-13 13:25:50,329 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:50,330 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:50,331 - INFO - 127.0.0.1 - - [13/May/2025 13:25:50] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:50,431 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:50,443 - INFO - Generated 3 test steps
+2025-05-13 13:25:51,474 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:51,480 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:51,483 - INFO - 127.0.0.1 - - [13/May/2025 13:25:51] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:51,679 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:51,679 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:51,682 - INFO - 127.0.0.1 - - [13/May/2025 13:25:51] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:52,916 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:52,917 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:52,918 - INFO - 127.0.0.1 - - [13/May/2025 13:25:52] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:25:56,871 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:25:56,874 - INFO - Generated 3 test steps
+2025-05-13 13:25:59,378 - INFO - Test execution completed with 3 results
+2025-05-13 13:25:59,379 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:25:59,381 - INFO - 127.0.0.1 - - [13/May/2025 13:25:59] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:27:25,953 - INFO - 127.0.0.1 - - [13/May/2025 13:27:25] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:27:25,954 - INFO - 127.0.0.1 - - [13/May/2025 13:27:25] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:27:26,199 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:27:26,263 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:27:27,622 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:27:28,304 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:27:28,354 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:27:28,666 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:27:29,987 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:27:30,070 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:27:47,391 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:27:47,394 - INFO - Generated 3 test steps
+2025-05-13 13:27:49,312 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:27:49,336 - INFO - Generated 3 test steps
+2025-05-13 13:27:49,724 - INFO - Test execution completed with 3 results
+2025-05-13 13:27:49,724 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:27:49,725 - INFO - 127.0.0.1 - - [13/May/2025 13:27:49] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:27:51,497 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:27:51,503 - INFO - Generated 3 test steps
+2025-05-13 13:27:51,518 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:27:51,522 - INFO - Generated 3 test steps
+2025-05-13 13:27:51,641 - INFO - Test execution completed with 3 results
+2025-05-13 13:27:51,642 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:27:51,643 - INFO - 127.0.0.1 - - [13/May/2025 13:27:51] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:27:53,918 - INFO - Test execution completed with 3 results
+2025-05-13 13:27:53,919 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:27:53,919 - INFO - 127.0.0.1 - - [13/May/2025 13:27:53] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:27:53,960 - INFO - Test execution completed with 3 results
+2025-05-13 13:27:53,960 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:27:53,961 - INFO - 127.0.0.1 - - [13/May/2025 13:27:53] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:53:32,535 - INFO - 127.0.0.1 - - [13/May/2025 13:53:32] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:53:32,536 - INFO - 127.0.0.1 - - [13/May/2025 13:53:32] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:53:32,794 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:53:32,863 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:53:34,174 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:53:34,524 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:54:01,042 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:54:01,045 - INFO - Generated 3 test steps
+2025-05-13 13:54:01,966 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:54:01,971 - INFO - Generated 3 test steps
+2025-05-13 13:54:08,739 - INFO - Test execution completed with 3 results
+2025-05-13 13:54:08,739 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:54:08,740 - INFO - 127.0.0.1 - - [13/May/2025 13:54:08] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:54:08,995 - INFO - Test execution completed with 3 results
+2025-05-13 13:54:08,996 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:54:08,997 - INFO - 127.0.0.1 - - [13/May/2025 13:54:08] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:55:23,196 - INFO - 127.0.0.1 - - [13/May/2025 13:55:23] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:55:23,196 - INFO - 127.0.0.1 - - [13/May/2025 13:55:23] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:55:23,446 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:55:23,515 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:55:24,806 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:55:25,184 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:55:45,074 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:55:45,079 - INFO - Generated 3 test steps
+2025-05-13 13:55:47,028 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:55:47,029 - INFO - Generated 3 test steps
+2025-05-13 13:55:47,485 - INFO - Test execution completed with 3 results
+2025-05-13 13:55:47,486 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:55:47,487 - INFO - 127.0.0.1 - - [13/May/2025 13:55:47] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:55:49,508 - INFO - Test execution completed with 3 results
+2025-05-13 13:55:49,508 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:55:49,509 - INFO - 127.0.0.1 - - [13/May/2025 13:55:49] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:55:53,252 - INFO - 127.0.0.1 - - [13/May/2025 13:55:53] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:55:53,253 - INFO - 127.0.0.1 - - [13/May/2025 13:55:53] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 13:55:53,503 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 13:55:53,569 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 13:55:55,162 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 13:55:55,214 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 13:56:13,685 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:56:13,689 - INFO - Generated 3 test steps
+2025-05-13 13:56:16,076 - INFO - Test execution completed with 3 results
+2025-05-13 13:56:16,077 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:56:16,078 - INFO - 127.0.0.1 - - [13/May/2025 13:56:16] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 13:56:19,113 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 13:56:19,124 - INFO - Generated 3 test steps
+2025-05-13 13:56:21,316 - INFO - Test execution completed with 3 results
+2025-05-13 13:56:21,316 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 13:56:21,318 - INFO - 127.0.0.1 - - [13/May/2025 13:56:21] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:16:11,055 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\jira_writer.py', reloading
+2025-05-13 14:16:11,343 - INFO -  * Restarting with stat
+2025-05-13 14:20:47,873 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 14:20:48,068 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-13 14:20:48,068 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-13 14:20:48,071 - INFO -  * Restarting with stat
+2025-05-13 14:20:49,656 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 14:20:49,682 - WARNING -  * Debugger is active!
+2025-05-13 14:20:49,690 - INFO -  * Debugger PIN: 835-841-490
+2025-05-13 14:22:26,075 - INFO - 127.0.0.1 - - [13/May/2025 14:22:26] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:22:26,077 - INFO - 127.0.0.1 - - [13/May/2025 14:22:26] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:22:26,322 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 14:22:26,387 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 14:22:27,999 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 14:22:28,000 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 14:22:51,341 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:22:51,344 - INFO - Generated 3 test steps
+2025-05-13 14:22:53,559 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:22:53,561 - INFO - Generated 3 test steps
+2025-05-13 14:22:59,913 - INFO - Test execution completed with 3 results
+2025-05-13 14:22:59,914 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:22:59,916 - INFO - 127.0.0.1 - - [13/May/2025 14:22:59] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:23:00,049 - INFO - Test execution completed with 3 results
+2025-05-13 14:23:00,049 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:23:00,051 - INFO - 127.0.0.1 - - [13/May/2025 14:23:00] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:29:37,602 - INFO - 127.0.0.1 - - [13/May/2025 14:29:37] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:29:37,604 - INFO - 127.0.0.1 - - [13/May/2025 14:29:37] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:29:37,862 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 14:29:37,924 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 14:29:39,173 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 14:29:39,540 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 14:29:47,604 - INFO - 127.0.0.1 - - [13/May/2025 14:29:47] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:29:47,606 - INFO - 127.0.0.1 - - [13/May/2025 14:29:47] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 14:29:47,920 - INFO - Triggering agent for issue: JAI-9
+2025-05-13 14:29:47,921 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 14:29:49,541 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon', 'customfields': {'url': None, 'steps': []}}
+2025-05-13 14:29:49,564 - INFO - Story fetched: {'key': 'JAI-9', 'summary': 'Add Product to Cart', 'description': '*Summary*: \nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\nAdd a product to cart from inventory page\n\nCheck the cart has the product inside\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 14:30:06,463 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:30:06,469 - INFO - Generated 3 test steps
+2025-05-13 14:30:06,737 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:30:06,744 - INFO - Generated 3 test steps
+2025-05-13 14:30:07,167 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:30:07,171 - INFO - Generated 3 test steps
+2025-05-13 14:30:09,394 - INFO - Test execution completed with 3 results
+2025-05-13 14:30:09,394 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:30:09,395 - INFO - 127.0.0.1 - - [13/May/2025 14:30:09] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:30:09,634 - INFO - Test execution completed with 3 results
+2025-05-13 14:30:09,635 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:30:09,637 - INFO - 127.0.0.1 - - [13/May/2025 14:30:09] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:30:10,092 - INFO - Test execution completed with 3 results
+2025-05-13 14:30:10,093 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:30:10,094 - INFO - 127.0.0.1 - - [13/May/2025 14:30:10] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 14:30:16,826 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 14:30:16,831 - INFO - Generated 3 test steps
+2025-05-13 14:30:24,022 - INFO - Test execution completed with 3 results
+2025-05-13 14:30:24,022 - ERROR - Error in agent execution: post_results_to_jira() missing 1 required positional argument: 'scenario'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 52, in trigger_agent
+    post_results_to_jira(issue_key, results)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: post_results_to_jira() missing 1 required positional argument: 'scenario'
+2025-05-13 14:30:24,023 - INFO - 127.0.0.1 - - [13/May/2025 14:30:24] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 15:02:27,915 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 15:02:29,391 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-13 15:02:29,392 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-13 15:02:29,394 - INFO -  * Restarting with stat
+2025-05-13 15:02:31,134 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 15:02:31,162 - WARNING -  * Debugger is active!
+2025-05-13 15:02:31,172 - INFO -  * Debugger PIN: 835-841-490
+2025-05-13 15:03:01,457 - INFO - 127.0.0.1 - - [13/May/2025 15:03:01] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:03:01,474 - INFO - 127.0.0.1 - - [13/May/2025 15:03:01] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:03:01,485 - INFO - 127.0.0.1 - - [13/May/2025 15:03:01] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:03:01,700 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:03:01,763 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:03:01,782 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:03:03,386 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:03:03,396 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:03:03,441 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:03:20,645 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:03:20,654 - INFO - Generated 3 test scenarios
+2025-05-13 15:03:20,655 - INFO - Running scenario: Access cart page via cart icon with valid credentials
+2025-05-13 15:03:26,756 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:03:26,758 - INFO - Generated 3 test scenarios
+2025-05-13 15:03:26,758 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 15:03:28,081 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:03:28,083 - INFO - Generated 3 test scenarios
+2025-05-13 15:03:28,084 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 15:03:41,671 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 15:03:41,898 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 15:03:41,902 - INFO - Running scenario: Access cart page via cart icon with invalid credentials
+2025-05-13 15:03:49,173 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 15:03:49,173 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 15:04:01,952 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:04:01,954 - INFO - 127.0.0.1 - - [13/May/2025 15:04:01] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:04:02,206 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:04:02,206 - INFO - 127.0.0.1 - - [13/May/2025 15:04:02] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:04:18,053 - INFO - Running scenario: Access cart page via cart icon without logging in
+2025-05-13 15:05:00,547 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:05:00,548 - INFO - 127.0.0.1 - - [13/May/2025 15:05:00] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:06:58,946 - INFO - 127.0.0.1 - - [13/May/2025 15:06:58] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:06:59,197 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:07:00,867 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:07:15,869 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:07:15,875 - INFO - Generated 3 test scenarios
+2025-05-13 15:07:15,875 - INFO - Running scenario: Access cart page via cart icon with valid credentials
+2025-05-13 15:07:28,429 - INFO - Running scenario: Access cart page via cart icon without logging in
+2025-05-13 15:08:03,341 - INFO - Running scenario: Access cart page via cart icon with invalid credentials
+2025-05-13 15:08:47,159 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:08:47,160 - INFO - 127.0.0.1 - - [13/May/2025 15:08:47] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:12:56,103 - INFO - 127.0.0.1 - - [13/May/2025 15:12:56] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:12:56,358 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:12:58,161 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:12:59,025 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 15:13:00,671 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 15:13:16,905 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:13:16,907 - INFO - Generated 3 test scenarios
+2025-05-13 15:13:16,907 - INFO - Running scenario: Access cart page with no items
+2025-05-13 15:13:20,181 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 15:13:20,186 - INFO - Generated 3 test scenarios
+2025-05-13 15:13:20,186 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 15:13:24,632 - INFO - Running scenario: Access cart page with one item
+2025-05-13 15:13:27,297 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 15:13:31,844 - INFO - Running scenario: Access cart page with multiple items
+2025-05-13 15:13:34,267 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 15:13:44,885 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:13:44,886 - INFO - 127.0.0.1 - - [13/May/2025 15:13:44] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 15:13:46,889 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 15:13:46,889 - INFO - 127.0.0.1 - - [13/May/2025 15:13:46] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:03:17,085 - INFO - 127.0.0.1 - - [13/May/2025 16:03:17] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:03:17,337 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:03:19,006 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:03:20,753 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:03:22,394 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:03:41,529 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:03:41,546 - INFO - Generated 3 test scenarios
+2025-05-13 16:03:41,546 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 16:03:42,580 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:03:42,584 - INFO - Generated 3 test scenarios
+2025-05-13 16:03:42,584 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 16:03:58,141 - ERROR - Error in agent execution: Page.screenshot: Target page, context or browser has been closed
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 51, in trigger_agent
+    results = run_test_steps(flow.get("steps", []), scenario=scenario)
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\test_executor.py", line 80, in run_test_steps
+    page.screenshot(path=screenshot_path, full_page=True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 9789, in screenshot
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.screenshot(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_page.py", line 795, in screenshot
+    encoded_binary = await self._channel.send("screenshot", params)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 61, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 528, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: Page.screenshot: Target page, context or browser has been closed
+2025-05-13 16:03:58,147 - INFO - 127.0.0.1 - - [13/May/2025 16:03:58] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 16:03:59,896 - ERROR - Error in agent execution: Page.screenshot: Target page, context or browser has been closed
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 51, in trigger_agent
+    results = run_test_steps(flow.get("steps", []), scenario=scenario)
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\test_executor.py", line 80, in run_test_steps
+    page.screenshot(path=screenshot_path, full_page=True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 9789, in screenshot
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.screenshot(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_page.py", line 795, in screenshot
+    encoded_binary = await self._channel.send("screenshot", params)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 61, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 528, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: Page.screenshot: Target page, context or browser has been closed
+2025-05-13 16:03:59,901 - INFO - 127.0.0.1 - - [13/May/2025 16:03:59] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-13 16:18:11,974 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 16:18:12,344 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-13 16:18:12,345 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-13 16:18:12,348 - INFO -  * Restarting with stat
+2025-05-13 16:18:15,683 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-13 16:18:15,739 - WARNING -  * Debugger is active!
+2025-05-13 16:18:15,753 - INFO -  * Debugger PIN: 835-841-490
+2025-05-13 16:31:08,646 - INFO - 127.0.0.1 - - [13/May/2025 16:31:08] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:31:08,903 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:31:10,646 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:31:31,606 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:31:31,618 - INFO - Generated 3 test scenarios
+2025-05-13 16:31:31,618 - INFO - Running scenario: Access cart page via cart icon without items
+2025-05-13 16:31:42,007 - INFO - 127.0.0.1 - - [13/May/2025 16:31:42] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:31:42,147 - INFO - 127.0.0.1 - - [13/May/2025 16:31:42] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:31:42,186 - INFO - 127.0.0.1 - - [13/May/2025 16:31:42] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:31:42,263 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:31:42,316 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:31:42,457 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:31:43,784 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:31:43,940 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:31:43,965 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:31:55,728 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:31:55,736 - INFO - Generated 3 test scenarios
+2025-05-13 16:31:55,737 - INFO - Running scenario: Access cart page via cart icon with valid credentials
+2025-05-13 16:31:56,144 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 16:32:04,326 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 16:32:04,397 - INFO - Running scenario: Access cart page via cart icon without logging in
+2025-05-13 16:32:04,673 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:32:04,678 - INFO - Generated 3 test scenarios
+2025-05-13 16:32:04,678 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 16:32:05,290 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:32:05,294 - INFO - Generated 3 test scenarios
+2025-05-13 16:32:05,295 - INFO - Running scenario: Access cart page via cart icon without any items
+2025-05-13 16:32:13,588 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 16:32:14,720 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 16:32:19,076 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 16:32:19,078 - INFO - 127.0.0.1 - - [13/May/2025 16:32:19] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:32:21,588 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 16:32:23,645 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 16:32:34,715 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 16:32:34,717 - INFO - 127.0.0.1 - - [13/May/2025 16:32:34] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:32:36,595 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 16:32:36,597 - INFO - 127.0.0.1 - - [13/May/2025 16:32:36] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:32:40,712 - INFO - Running scenario: Access cart page via cart icon with invalid credentials
+2025-05-13 16:33:25,368 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 16:33:25,369 - INFO - 127.0.0.1 - - [13/May/2025 16:33:25] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:34:00,053 - INFO - 127.0.0.1 - - [13/May/2025 16:34:00] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-13 16:34:00,299 - INFO - Triggering agent for issue: JAI-12
+2025-05-13 16:34:02,027 - INFO - Story fetched: {'key': 'JAI-12', 'summary': 'Navigate to Cart', 'description': '*Summary*: Access cart page via cart icon\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-13 16:34:22,329 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-13 16:34:22,333 - INFO - Generated 3 test scenarios
+2025-05-13 16:34:22,334 - INFO - Running scenario: Access cart page via cart icon without any item
+2025-05-13 16:34:30,628 - INFO - Running scenario: Access cart page via cart icon with one item
+2025-05-13 16:34:38,600 - INFO - Running scenario: Access cart page via cart icon with multiple items
+2025-05-13 16:36:53,550 - INFO - Results posted to Jira for issue: JAI-12
+2025-05-13 16:36:53,552 - INFO - 127.0.0.1 - - [13/May/2025 16:36:53] "POST /trigger-agent HTTP/1.1" 200 -

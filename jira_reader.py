@@ -70,3 +70,17 @@ if __name__ == "__main__":
     )  # Replace with your project key and QA column name
     for i in issues:
         print(i["key"], "-", i["summary"])
+
+def get_user_story(issue_key):
+    jira = connect_to_jira()
+    issue = jira.issue(issue_key)
+    story = {
+        "key": issue.key,
+        "summary": issue.fields.summary,
+        "description": issue.fields.description,
+        "customfields": {
+            "url": extract_url(issue.fields.description),
+            "steps": extract_steps(issue.fields.description)
+        }
+    }
+    return story
