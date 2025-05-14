@@ -900,3 +900,465 @@ playwright._impl._errors.TargetClosedError: Page.screenshot: Target page, contex
 2025-05-14 11:53:08,980 - INFO - 127.0.0.1 - - [14/May/2025 11:53:08] "POST /trigger-agent HTTP/1.1" 200 -
 2025-05-14 11:53:09,200 - INFO - Issue JAI-10 already has auto-tested label, skipping test
 2025-05-14 11:53:09,201 - INFO - 127.0.0.1 - - [14/May/2025 11:53:09] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:57:24,757 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 12:57:26,464 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 12:57:26,465 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 12:57:26,467 - INFO -  * Restarting with stat
+2025-05-14 12:57:28,494 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 12:57:28,526 - WARNING -  * Debugger is active!
+2025-05-14 12:57:28,530 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 12:57:38,548 - INFO - 127.0.0.1 - - [14/May/2025 12:57:38] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:57:38,550 - INFO - 127.0.0.1 - - [14/May/2025 12:57:38] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:57:38,786 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 12:57:38,869 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 12:57:40,175 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 12:57:40,176 - INFO - 127.0.0.1 - - [14/May/2025 12:57:40] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:57:41,715 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time', 'labels': [], 'customfields': {'url': None, 'steps': []}}
+2025-05-14 12:58:04,043 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 12:58:04,050 - INFO - Generated 3 test scenarios
+2025-05-14 12:58:04,050 - INFO - Running scenario: Add one item and check cart badge
+2025-05-14 12:58:08,626 - INFO - 127.0.0.1 - - [14/May/2025 12:58:08] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:58:08,932 - INFO - 127.0.0.1 - - [14/May/2025 12:58:08] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:58:08,935 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 12:58:08,938 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 12:58:09,246 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 12:58:11,152 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 12:58:11,153 - INFO - 127.0.0.1 - - [14/May/2025 12:58:11] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:58:11,476 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 12:58:11,477 - INFO - 127.0.0.1 - - [14/May/2025 12:58:11] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 12:58:12,084 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time', 'labels': [], 'customfields': {'url': None, 'steps': []}}
+2025-05-14 12:58:29,737 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 12:58:29,742 - INFO - Generated 3 test scenarios
+2025-05-14 12:58:29,742 - INFO - Running scenario: Add one item and check cart badge
+2025-05-14 12:59:11,143 - ERROR - Error in agent execution: Page.screenshot: Target page, context or browser has been closed
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 64, in trigger_agent
+    results = run_test_steps(flow.get("steps", []), scenario=scenario)
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\test_executor.py", line 80, in run_test_steps
+    page.screenshot(path=screenshot_path, full_page=True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 9789, in screenshot
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.screenshot(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_page.py", line 795, in screenshot
+    encoded_binary = await self._channel.send("screenshot", params)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 61, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 528, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: Page.screenshot: Target page, context or browser has been closed
+2025-05-14 12:59:11,147 - INFO - 127.0.0.1 - - [14/May/2025 12:59:11] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-14 12:59:11,966 - ERROR - Error in agent execution: Page.screenshot: Target page, context or browser has been closed
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 64, in trigger_agent
+    results = run_test_steps(flow.get("steps", []), scenario=scenario)
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\test_executor.py", line 80, in run_test_steps
+    page.screenshot(path=screenshot_path, full_page=True)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 9789, in screenshot
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.screenshot(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_page.py", line 795, in screenshot
+    encoded_binary = await self._channel.send("screenshot", params)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 61, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 528, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: Page.screenshot: Target page, context or browser has been closed
+2025-05-14 12:59:11,969 - INFO - 127.0.0.1 - - [14/May/2025 12:59:11] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-14 13:21:49,750 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:21:49,938 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 13:21:49,939 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 13:21:49,942 - INFO -  * Restarting with stat
+2025-05-14 13:21:51,885 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:21:51,913 - WARNING -  * Debugger is active!
+2025-05-14 13:21:51,921 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 13:47:32,919 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:47:34,566 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 13:47:34,567 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 13:47:34,569 - INFO -  * Restarting with stat
+2025-05-14 13:47:36,712 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:47:36,749 - WARNING -  * Debugger is active!
+2025-05-14 13:47:36,754 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 13:52:06,291 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:52:06,331 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 13:52:06,331 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 13:52:06,332 - INFO -  * Restarting with stat
+2025-05-14 13:52:08,158 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 13:52:08,188 - WARNING -  * Debugger is active!
+2025-05-14 13:52:08,192 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 13:52:30,527 - INFO - 127.0.0.1 - - [14/May/2025 13:52:30] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:52:30,530 - INFO - 127.0.0.1 - - [14/May/2025 13:52:30] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:52:30,532 - INFO - 127.0.0.1 - - [14/May/2025 13:52:30] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:52:30,771 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 13:52:30,842 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 13:52:30,845 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 13:52:32,143 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 13:52:32,145 - INFO - 127.0.0.1 - - [14/May/2025 13:52:32] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:52:32,429 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 13:52:32,431 - INFO - 127.0.0.1 - - [14/May/2025 13:52:32] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:52:33,840 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 13:52:58,101 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 13:52:58,110 - INFO - Generated 3 test scenarios
+2025-05-14 13:52:58,111 - INFO - Running scenario: Add one item and check cart badge
+2025-05-14 13:53:16,173 - INFO - Running scenario: Add multiple items and check cart badge
+2025-05-14 13:53:22,168 - INFO - Running scenario: Remove item and check cart badge
+2025-05-14 13:53:36,004 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 13:53:36,007 - INFO - 127.0.0.1 - - [14/May/2025 13:53:36] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:53,782 - INFO - 127.0.0.1 - - [14/May/2025 13:54:53] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:53,785 - INFO - 127.0.0.1 - - [14/May/2025 13:54:53] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:53,788 - INFO - 127.0.0.1 - - [14/May/2025 13:54:53] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:54,035 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 13:54:54,103 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 13:54:54,104 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 13:54:55,359 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 13:54:55,361 - INFO - 127.0.0.1 - - [14/May/2025 13:54:55] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:55,733 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 13:54:55,734 - INFO - 127.0.0.1 - - [14/May/2025 13:54:55] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:54:56,731 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 13:54:56,733 - INFO - 127.0.0.1 - - [14/May/2025 13:54:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:55:44,342 - INFO - 127.0.0.1 - - [14/May/2025 13:55:44] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:55:44,662 - INFO - 127.0.0.1 - - [14/May/2025 13:55:44] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:55:44,663 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 13:55:44,665 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 13:55:44,976 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 13:55:45,935 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 13:55:45,936 - INFO - 127.0.0.1 - - [14/May/2025 13:55:45] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:55:46,000 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 13:55:46,001 - INFO - 127.0.0.1 - - [14/May/2025 13:55:46] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 13:55:46,252 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 13:55:46,253 - INFO - 127.0.0.1 - - [14/May/2025 13:55:46] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:54,274 - INFO - 127.0.0.1 - - [14/May/2025 14:16:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:54,275 - INFO - 127.0.0.1 - - [14/May/2025 14:16:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:54,276 - INFO - 127.0.0.1 - - [14/May/2025 14:16:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:54,533 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 14:16:54,587 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 14:16:54,590 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 14:16:56,134 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 14:16:56,136 - INFO - 127.0.0.1 - - [14/May/2025 14:16:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:56,179 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 14:16:56,180 - INFO - 127.0.0.1 - - [14/May/2025 14:16:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:16:56,209 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 14:16:56,210 - INFO - 127.0.0.1 - - [14/May/2025 14:16:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:12,185 - INFO - 127.0.0.1 - - [14/May/2025 14:18:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:12,188 - INFO - 127.0.0.1 - - [14/May/2025 14:18:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:12,190 - INFO - 127.0.0.1 - - [14/May/2025 14:18:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:12,447 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 14:18:12,504 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 14:18:12,516 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 14:18:14,037 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 14:18:14,040 - INFO - 127.0.0.1 - - [14/May/2025 14:18:14] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:14,161 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 14:18:14,163 - INFO - 127.0.0.1 - - [14/May/2025 14:18:14] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:18:15,406 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 14:18:37,045 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 14:18:37,052 - INFO - Generated 3 test scenarios
+2025-05-14 14:18:37,052 - INFO - Running scenario: Add one item and verify cart badge update
+2025-05-14 14:18:54,616 - INFO - Running scenario: Add multiple items and verify cart badge update
+2025-05-14 14:19:00,904 - INFO - Running scenario: Remove item and verify cart badge update
+2025-05-14 14:21:17,430 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 14:21:17,431 - INFO - 127.0.0.1 - - [14/May/2025 14:21:17] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:46,815 - INFO - 127.0.0.1 - - [14/May/2025 14:21:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:46,817 - INFO - 127.0.0.1 - - [14/May/2025 14:21:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:46,819 - INFO - 127.0.0.1 - - [14/May/2025 14:21:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:47,066 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 14:21:47,136 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 14:21:47,137 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 14:21:48,436 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 14:21:48,437 - INFO - 127.0.0.1 - - [14/May/2025 14:21:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:48,647 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 14:21:48,650 - INFO - 127.0.0.1 - - [14/May/2025 14:21:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:21:48,754 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 14:21:48,756 - INFO - 127.0.0.1 - - [14/May/2025 14:21:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:43:42,633 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 14:43:44,395 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 14:43:44,395 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 14:43:44,399 - INFO -  * Restarting with stat
+2025-05-14 14:43:46,599 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 14:43:46,634 - WARNING -  * Debugger is active!
+2025-05-14 14:43:46,639 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 14:44:16,860 - INFO - 127.0.0.1 - - [14/May/2025 14:44:16] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:44:16,861 - INFO - 127.0.0.1 - - [14/May/2025 14:44:16] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:44:16,861 - INFO - 127.0.0.1 - - [14/May/2025 14:44:16] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:44:17,122 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 14:44:17,173 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 14:44:17,176 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 14:44:18,783 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 14:44:18,788 - INFO - 127.0.0.1 - - [14/May/2025 14:44:18] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:44:18,841 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 14:44:18,845 - INFO - 127.0.0.1 - - [14/May/2025 14:44:18] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:44:20,426 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 14:44:43,425 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 14:44:43,432 - INFO - Generated 3 test scenarios
+2025-05-14 14:44:43,433 - INFO - Running scenario: Add one item and verify cart badge update
+2025-05-14 14:45:02,331 - INFO - Running scenario: Add multiple items and verify cart badge update
+2025-05-14 14:45:08,366 - INFO - Running scenario: Remove item and verify cart badge update
+2025-05-14 14:45:22,263 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 14:45:22,265 - INFO - 127.0.0.1 - - [14/May/2025 14:45:22] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:33,999 - INFO - 127.0.0.1 - - [14/May/2025 14:45:33] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:34,001 - INFO - 127.0.0.1 - - [14/May/2025 14:45:34] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:34,004 - INFO - 127.0.0.1 - - [14/May/2025 14:45:34] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:34,255 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 14:45:34,324 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 14:45:34,325 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 14:45:35,634 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 14:45:35,635 - INFO - 127.0.0.1 - - [14/May/2025 14:45:35] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:35,895 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 14:45:35,896 - INFO - 127.0.0.1 - - [14/May/2025 14:45:35] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 14:45:35,927 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 14:45:35,928 - INFO - 127.0.0.1 - - [14/May/2025 14:45:35] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:17,979 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 15:58:19,383 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 15:58:19,383 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 15:58:19,386 - INFO -  * Restarting with stat
+2025-05-14 15:58:21,334 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 15:58:21,362 - WARNING -  * Debugger is active!
+2025-05-14 15:58:21,366 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 15:58:54,233 - INFO - 127.0.0.1 - - [14/May/2025 15:58:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:54,235 - INFO - 127.0.0.1 - - [14/May/2025 15:58:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:54,238 - INFO - 127.0.0.1 - - [14/May/2025 15:58:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:54,493 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 15:58:54,544 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 15:58:54,561 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 15:58:55,811 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 15:58:55,813 - INFO - 127.0.0.1 - - [14/May/2025 15:58:55] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:56,143 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 15:58:56,144 - INFO - 127.0.0.1 - - [14/May/2025 15:58:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:58:56,161 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 15:58:56,162 - INFO - 127.0.0.1 - - [14/May/2025 15:58:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:59:19,817 - INFO - 127.0.0.1 - - [14/May/2025 15:59:19] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:59:20,125 - INFO - 127.0.0.1 - - [14/May/2025 15:59:20] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:59:20,127 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 15:59:20,131 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 15:59:20,437 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 15:59:21,430 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 15:59:21,433 - INFO - 127.0.0.1 - - [14/May/2025 15:59:21] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:59:21,787 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 15:59:21,790 - INFO - 127.0.0.1 - - [14/May/2025 15:59:21] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 15:59:24,150 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 15:59:48,728 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 15:59:48,732 - INFO - Generated 3 test scenarios
+2025-05-14 15:59:48,732 - INFO - Running scenario: Add one item and check cart badge
+2025-05-14 16:00:11,170 - INFO - Running scenario: Add multiple items and check cart badge
+2025-05-14 16:00:17,203 - INFO - Running scenario: Remove item and check cart badge
+2025-05-14 16:00:32,575 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:00:32,578 - INFO - 127.0.0.1 - - [14/May/2025 16:00:32] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:40,148 - INFO - 127.0.0.1 - - [14/May/2025 16:00:40] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:40,151 - INFO - 127.0.0.1 - - [14/May/2025 16:00:40] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:40,154 - INFO - 127.0.0.1 - - [14/May/2025 16:00:40] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:40,399 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:00:40,457 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:00:40,462 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:00:41,756 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 16:00:41,756 - INFO - 127.0.0.1 - - [14/May/2025 16:00:41] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:42,030 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:00:42,032 - INFO - 127.0.0.1 - - [14/May/2025 16:00:42] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:00:42,114 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:00:42,116 - INFO - 127.0.0.1 - - [14/May/2025 16:00:42] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:37,502 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:07:37,560 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 16:07:37,560 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 16:07:37,562 - INFO -  * Restarting with stat
+2025-05-14 16:07:39,430 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:07:39,461 - WARNING -  * Debugger is active!
+2025-05-14 16:07:39,468 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 16:07:52,858 - INFO - 127.0.0.1 - - [14/May/2025 16:07:52] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:52,862 - INFO - 127.0.0.1 - - [14/May/2025 16:07:52] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:52,865 - INFO - 127.0.0.1 - - [14/May/2025 16:07:52] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:53,123 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:07:53,178 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:07:53,178 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:07:54,689 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:07:54,690 - INFO - 127.0.0.1 - - [14/May/2025 16:07:54] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:54,749 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:07:54,752 - INFO - 127.0.0.1 - - [14/May/2025 16:07:54] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:07:56,354 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 16:08:06,642 - INFO - 127.0.0.1 - - [14/May/2025 16:08:06] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:08:06,976 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:08:06,980 - INFO - 127.0.0.1 - - [14/May/2025 16:08:06] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:08:06,983 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:08:07,292 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:08:08,544 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:08:08,545 - INFO - 127.0.0.1 - - [14/May/2025 16:08:08] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:08:08,583 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:08:08,584 - INFO - 127.0.0.1 - - [14/May/2025 16:08:08] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:08:10,445 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 16:08:19,676 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 16:08:19,680 - INFO - Generated 3 test scenarios
+2025-05-14 16:08:19,680 - INFO - Running scenario: Add one item and verify cart badge update
+2025-05-14 16:08:28,875 - INFO - Running scenario: Add multiple items and verify cart badge update
+2025-05-14 16:08:34,693 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 16:08:34,697 - INFO - Generated 3 test scenarios
+2025-05-14 16:08:34,697 - INFO - Running scenario: Add one item and verify cart badge
+2025-05-14 16:08:35,003 - INFO - Running scenario: Remove item and verify cart badge update
+2025-05-14 16:08:41,250 - INFO - Running scenario: Add multiple items and verify cart badge
+2025-05-14 16:08:47,430 - INFO - Running scenario: Remove item and verify cart badge
+2025-05-14 16:08:54,741 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:08:54,742 - INFO - 127.0.0.1 - - [14/May/2025 16:08:54] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:00,179 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:09:00,180 - INFO - 127.0.0.1 - - [14/May/2025 16:09:00] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:10,260 - INFO - 127.0.0.1 - - [14/May/2025 16:09:10] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:10,261 - INFO - 127.0.0.1 - - [14/May/2025 16:09:10] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:10,264 - INFO - 127.0.0.1 - - [14/May/2025 16:09:10] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:10,515 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:09:10,579 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:09:10,581 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:09:11,976 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:09:11,979 - INFO - 127.0.0.1 - - [14/May/2025 16:09:11] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:12,194 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 16:09:12,195 - INFO - 127.0.0.1 - - [14/May/2025 16:09:12] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:09:12,596 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:09:12,597 - INFO - 127.0.0.1 - - [14/May/2025 16:09:12] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:35,918 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:17:36,155 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 16:17:36,155 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 16:17:36,158 - INFO -  * Restarting with stat
+2025-05-14 16:17:38,194 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:17:38,229 - WARNING -  * Debugger is active!
+2025-05-14 16:17:38,242 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 16:17:54,626 - INFO - 127.0.0.1 - - [14/May/2025 16:17:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:54,629 - INFO - 127.0.0.1 - - [14/May/2025 16:17:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:54,631 - INFO - 127.0.0.1 - - [14/May/2025 16:17:54] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:54,881 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:17:54,937 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:17:54,940 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:17:56,304 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:17:56,311 - INFO - 127.0.0.1 - - [14/May/2025 16:17:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:56,509 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:17:56,510 - INFO - 127.0.0.1 - - [14/May/2025 16:17:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:17:57,943 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 16:18:06,011 - INFO - 127.0.0.1 - - [14/May/2025 16:18:06] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:18:06,319 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:18:06,336 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:18:06,338 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:18:07,984 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:18:07,987 - INFO - 127.0.0.1 - - [14/May/2025 16:18:07] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:18:08,340 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:18:08,344 - INFO - 127.0.0.1 - - [14/May/2025 16:18:08] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:18:09,612 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 16:18:16,929 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 16:18:16,940 - INFO - Generated 3 test scenarios
+2025-05-14 16:18:16,940 - INFO - Running scenario: Add one item and verify cart badge
+2025-05-14 16:18:34,790 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 16:18:34,792 - INFO - Generated 3 test scenarios
+2025-05-14 16:18:34,792 - INFO - Running scenario: Add one item and verify cart badge update
+2025-05-14 16:18:35,384 - INFO - Running scenario: Add multiple items and verify cart badge
+2025-05-14 16:18:41,305 - INFO - Running scenario: Add multiple items and verify cart badge update
+2025-05-14 16:18:42,777 - INFO - Running scenario: Remove item and verify cart badge
+2025-05-14 16:18:56,832 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:18:56,833 - INFO - 127.0.0.1 - - [14/May/2025 16:18:56] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:12,073 - INFO - 127.0.0.1 - - [14/May/2025 16:19:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:12,078 - INFO - 127.0.0.1 - - [14/May/2025 16:19:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:12,329 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:19:12,386 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:19:14,005 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 16:19:14,006 - INFO - 127.0.0.1 - - [14/May/2025 16:19:14] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:14,087 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:19:14,091 - INFO - 127.0.0.1 - - [14/May/2025 16:19:14] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:48,332 - INFO - 127.0.0.1 - - [14/May/2025 16:19:48] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:48,642 - INFO - 127.0.0.1 - - [14/May/2025 16:19:48] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:48,643 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:19:48,955 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:19:50,307 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 16:19:50,308 - INFO - 127.0.0.1 - - [14/May/2025 16:19:50] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:19:50,611 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:19:50,612 - INFO - 127.0.0.1 - - [14/May/2025 16:19:50] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:20:15,063 - INFO - Running scenario: Remove item and verify cart badge update
+2025-05-14 16:20:33,176 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:20:33,176 - INFO - 127.0.0.1 - - [14/May/2025 16:20:33] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:35:33,102 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\jira_writer.py', reloading
+2025-05-14 16:35:33,316 - INFO -  * Restarting with stat
+2025-05-14 16:36:10,384 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:36:11,953 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.70.196:5000
+2025-05-14 16:36:11,954 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-14 16:36:11,957 - INFO -  * Restarting with stat
+2025-05-14 16:36:13,996 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-14 16:36:14,028 - WARNING -  * Debugger is active!
+2025-05-14 16:36:14,033 - INFO -  * Debugger PIN: 835-841-490
+2025-05-14 16:36:41,050 - INFO - 127.0.0.1 - - [14/May/2025 16:36:41] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:36:41,068 - INFO - 127.0.0.1 - - [14/May/2025 16:36:41] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:36:41,075 - INFO - 127.0.0.1 - - [14/May/2025 16:36:41] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:36:41,274 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:36:41,373 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:36:41,381 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:36:42,970 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:36:42,973 - INFO - 127.0.0.1 - - [14/May/2025 16:36:42] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:36:43,034 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:36:43,035 - INFO - 127.0.0.1 - - [14/May/2025 16:36:43] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:36:44,297 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-14 16:37:07,450 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-14 16:37:07,460 - INFO - Generated 3 test scenarios
+2025-05-14 16:37:07,460 - INFO - Running scenario: Add one item and verify cart badge
+2025-05-14 16:37:26,038 - INFO - Running scenario: Add multiple items and verify cart badge
+2025-05-14 16:37:31,994 - INFO - Running scenario: Remove item and verify cart badge
+2025-05-14 16:39:48,866 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-14 16:39:48,867 - INFO - 127.0.0.1 - - [14/May/2025 16:39:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:46,550 - INFO - 127.0.0.1 - - [14/May/2025 16:40:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:46,552 - INFO - 127.0.0.1 - - [14/May/2025 16:40:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:46,555 - INFO - 127.0.0.1 - - [14/May/2025 16:40:46] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:46,806 - INFO - Triggering agent for issue: JAI-10
+2025-05-14 16:40:46,900 - INFO - Triggering agent for issue: JAI-11
+2025-05-14 16:40:46,910 - INFO - Triggering agent for issue: JAI-12
+2025-05-14 16:40:48,448 - INFO - Issue JAI-10 already has auto-tested label, skipping test
+2025-05-14 16:40:48,450 - INFO - 127.0.0.1 - - [14/May/2025 16:40:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:48,572 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-14 16:40:48,573 - INFO - 127.0.0.1 - - [14/May/2025 16:40:48] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-14 16:40:48,585 - INFO - Issue JAI-12 already has auto-tested label, skipping test
+2025-05-14 16:40:48,586 - INFO - 127.0.0.1 - - [14/May/2025 16:40:48] "POST /trigger-agent HTTP/1.1" 200 -
