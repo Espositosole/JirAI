@@ -54,6 +54,7 @@ def get_stories_by_status(project_key, status_name):
                 "key": issue.key,
                 "summary": issue.fields.summary,
                 "description": issue.fields.description,
+                "labels": issue.fields.labels,  # Include labels in returned data
                 "customfields": {
                     "url": extract_url(issue.fields.description),
                     "steps": extract_steps(issue.fields.description),
@@ -63,13 +64,21 @@ def get_stories_by_status(project_key, status_name):
     return stories
 
 
+# Get issue labels
+def get_issue_labels(issue_key):
+    jira = connect_to_jira()
+    issue = jira.issue(issue_key)
+    return issue.fields.labels
+
+
 # For testing: print stories in QA column
 if __name__ == "__main__":
     issues = get_stories_by_status(
         "JAI", "QA"
     )  # Replace with your project key and QA column name
     for i in issues:
-        print(i["key"], "-", i["summary"])
+        print(i["key"], "-", i["summary"], "Labels:", i.get("labels", []))
+
 
 def get_user_story(issue_key):
     jira = connect_to_jira()
@@ -78,9 +87,10 @@ def get_user_story(issue_key):
         "key": issue.key,
         "summary": issue.fields.summary,
         "description": issue.fields.description,
+        "labels": issue.fields.labels,  # Include labels in returned data
         "customfields": {
             "url": extract_url(issue.fields.description),
-            "steps": extract_steps(issue.fields.description)
-        }
+            "steps": extract_steps(issue.fields.description),
+        },
     }
     return story

@@ -3,10 +3,10 @@ from flask_cors import CORS
 import sys
 import os
 import logging
-from jira_reader import get_user_story
+from jira_reader import get_user_story, get_issue_labels, connect_to_jira
 from nlp_parser import extract_test_steps
 from test_executor import run_test_steps
-from jira_writer import post_results_to_jira  # updated to accept grouped scenarios
+from jira_writer import post_results_to_jira
 
 # Configure logging
 logging.basicConfig(
@@ -34,6 +34,19 @@ def trigger_agent():
             return jsonify({"status": "error", "message": "Issue key is required"}), 400
 
         logger.info(f"Triggering agent for issue: {issue_key}")
+
+        # Check if the issue already has the auto-tested label
+        jira = connect_to_jira()
+        issue = jira.issue(issue_key)
+        labels = issue.fields.labels
+        
+        if "auto-tested" in labels:
+            logger.info(f"Issue {issue_key} already has auto-tested label, skipping test")
+            return jsonify({
+                "status": "skipped",
+                "issue_key": issue_key,
+                "message": "Issue already tested"
+            })
 
         # Fetch the user story from Jira
         story = get_user_story(issue_key)
