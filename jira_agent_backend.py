@@ -3,10 +3,10 @@ from flask_cors import CORS
 import sys
 import os
 import logging
-from jira_reader import get_user_story
+from jira_reader import get_user_story, get_issue_labels, connect_to_jira
 from nlp_parser import extract_test_steps
 from test_executor import run_test_steps
-from jira_writer import post_results_to_jira  # updated to accept grouped scenarios
+from jira_writer import post_results_to_jira
 
 # Configure logging
 logging.basicConfig(
@@ -35,9 +35,35 @@ def trigger_agent():
 
         logger.info(f"Triggering agent for issue: {issue_key}")
 
+        # Check if the issue already has the auto-tested label
+        jira = connect_to_jira()
+        issue = jira.issue(issue_key)
+        labels = issue.fields.labels
+
+        if "auto-tested" in labels:
+            logger.info(
+                f"Issue {issue_key} already has auto-tested label, skipping test"
+            )
+            return jsonify(
+                {
+                    "status": "skipped",
+                    "issue_key": issue_key,
+                    "message": "Issue already tested",
+                }
+            )
+
         # Fetch the user story from Jira
         story = get_user_story(issue_key)
         logger.info(f"Story fetched: {story}")
+        try:
+            current_issue = connect_to_jira().issue(issue_key)
+            labels = current_issue.fields.labels or []
+            if "testing-in-progress" not in labels:
+                labels.append("testing-in-progress")
+                current_issue.update(fields={"labels": labels})
+                logger.info(f"[JIRA] Added 'testing-in-progress' label to {issue_key}")
+        except Exception as e:
+            logger.warning(f"[JIRA] Could not add 'testing-in-progress' label: {e}")
 
         # Generate test flows from GPT
         flows = extract_test_steps(story)

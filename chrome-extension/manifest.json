@@ -1,30 +1,39 @@
-    {
-        "manifest_version": 3,
-        "name": "Jira Automation Agent",
-        "version": "1.0",
-        "description": "Automatically triggers UI testing agent when stories reach QA",
-        "permissions": [
-          "activeTab",
-          "storage",
-          "notifications"
-        ],
-        "host_permissions": [
-            "https://*.atlassian.net/*"
-        ],
-        "background": {
-            "service_worker": "background.js"
-        },
-        "content_scripts": [
-          {
+{
+    "manifest_version": 3,
+    "name": "Jira Automation Agent",
+    "version": "1.0",
+    "description": "Automatically triggers UI testing agent when stories reach QA",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "notifications"
+    ],
+    "host_permissions": [
+        "https://*.atlassian.net/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
             "matches": ["https://*.atlassian.net/*"],
             "js": ["content.js"],
             "run_at": "document_idle"
-          }
-        ],
-        "action": {
-            "default_popup": "popup.html"
-        },
-      "icons":{
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
         "128": "icon.png"
-      }
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["icon.png"],
+            "matches": ["<all_urls>"]
+        }
+    ]
+}
