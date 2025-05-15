@@ -39,18 +39,31 @@ def trigger_agent():
         jira = connect_to_jira()
         issue = jira.issue(issue_key)
         labels = issue.fields.labels
-        
+
         if "auto-tested" in labels:
-            logger.info(f"Issue {issue_key} already has auto-tested label, skipping test")
-            return jsonify({
-                "status": "skipped",
-                "issue_key": issue_key,
-                "message": "Issue already tested"
-            })
+            logger.info(
+                f"Issue {issue_key} already has auto-tested label, skipping test"
+            )
+            return jsonify(
+                {
+                    "status": "skipped",
+                    "issue_key": issue_key,
+                    "message": "Issue already tested",
+                }
+            )
 
         # Fetch the user story from Jira
         story = get_user_story(issue_key)
         logger.info(f"Story fetched: {story}")
+        try:
+            current_issue = connect_to_jira().issue(issue_key)
+            labels = current_issue.fields.labels or []
+            if "testing-in-progress" not in labels:
+                labels.append("testing-in-progress")
+                current_issue.update(fields={"labels": labels})
+                logger.info(f"[JIRA] Added 'testing-in-progress' label to {issue_key}")
+        except Exception as e:
+            logger.warning(f"[JIRA] Could not add 'testing-in-progress' label: {e}")
 
         # Generate test flows from GPT
         flows = extract_test_steps(story)

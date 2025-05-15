@@ -1,35 +1,39 @@
 function checkQAColumn() {
-    console.log("[Extension] Checking for QA cards (new layout)...");
+    console.log("[Extension] Starting QA column check process...");
 
     const cards = document.querySelectorAll('[data-testid="platform-board-kit.ui.card.card"]');
-    console.log(`[Extension] Found ${cards.length} cards`);
-
+    
+    let processedCount = 0;
+    let skippedCount = 0;
+    let totalQACards = 0;
+    
     cards.forEach(card => {
         const columnContainer = card.closest('[data-testid^="platform-board-kit.ui.column"]');
         const columnTitleEl = columnContainer?.querySelector('[data-testid*="column-name"]');
         const columnTitle = columnTitleEl?.textContent?.trim();
 
-        console.log("[Extension] Column title:", columnTitle);
-
         if (columnTitle === "QA") {
+            totalQACards++;
             const issueKey = card.getAttribute("data-issue-key") || card.textContent?.match(/[A-Z]+-\d+/)?.[0];
-            console.log("[Extension] Raw issueKey:", issueKey);
-
+            
             if (issueKey) {
                 // Check for tested label
                 const hasTestedLabel = checkForTestedLabel(card);
-                console.log(`[Extension] Issue ${issueKey} has tested label: ${hasTestedLabel}`);
                 
                 chrome.runtime.sendMessage({
                     action: 'triggerAgent',
                     issueKey: issueKey,
                     hasTestedLabel: hasTestedLabel
                 });
+                
+                processedCount++;
             } else {
-                console.warn("[Extension] No issue key found in card");
+                skippedCount++;
             }
         }
     });
+    
+    console.log(`[Extension] QA column check complete. Found ${totalQACards} QA cards: ${processedCount} processed, ${skippedCount} skipped (no issue key).`);
 }
 
 // Check if card has a "tested" label
@@ -60,19 +64,32 @@ function checkForTestedLabel(card) {
             return true;
         }
     }
+
+    // Look for any element containing text that might be a label
+    const allElements = card.querySelectorAll('*');
+    for (const element of allElements) {
+        if (element.textContent?.trim().toLowerCase() === 'auto-tested') {
+            return true;
+        }
+    }
     
     return false;
 }
 
+// Prevent duplicate event listener registration
+let hasInitialized = false;
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "checkQAColumn") {
-        console.log("[Extension] checkQAColumn triggered");
         checkQAColumn();
     }
 });
 
-// Auto-trigger when the page loads
+// Auto-trigger when the page loads, with safeguard against multiple executions
 window.addEventListener("load", () => {
-    console.log("[Extension] Auto-triggering QA column check");
-    chrome.runtime.sendMessage({ action: "checkQAColumn" });
+    if (!hasInitialized) {
+        console.log("[Extension] Page loaded, initiating QA column check");
+        chrome.runtime.sendMessage({ action: "checkQAColumn" });
+        hasInitialized = true;
+    }
 });
