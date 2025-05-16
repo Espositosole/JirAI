@@ -1,0 +1,8 @@
+[
+  {
+    "action": "comment",
+    "description": "Navigate to 'https://www.saucedemo.com/inventory.html'. Login with username 'standard_user' and password 'secret_sauce'. Add multiple items to the cart. Remove all items from the cart. Verify that the cart badge updates to display zero in real-time.",
+    "screenshot": true,
+    "screenshot_filename": "validate_cart_badge_displays_zero_when_all_items_are_removed_step_1_comment.png"
+  }
+]

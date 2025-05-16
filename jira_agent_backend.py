@@ -7,6 +7,7 @@ from jira_reader import get_user_story, get_issue_labels, connect_to_jira
 from nlp_parser import extract_test_steps
 from test_executor import run_test_steps
 from jira_writer import post_results_to_jira
+from browser_use_runner import run_browser_use_test
 
 # Configure logging
 logging.basicConfig(
@@ -55,6 +56,8 @@ def trigger_agent():
         # Fetch the user story from Jira
         story = get_user_story(issue_key)
         logger.info(f"Story fetched: {story}")
+
+        # Add testing-in-progress label
         try:
             current_issue = connect_to_jira().issue(issue_key)
             labels = current_issue.fields.labels or []
@@ -67,14 +70,26 @@ def trigger_agent():
 
         # Generate test flows from GPT
         flows = extract_test_steps(story)
+
+        # Normalize structure: wrap flat list of steps if needed
+        if isinstance(flows, list) and all(
+            isinstance(s, dict) and "action" in s for s in flows
+        ):
+            flows = [{"scenario": "Unnamed scenario", "steps": flows}]
+
         logger.info(f"Generated {len(flows)} test scenarios")
 
         scenario_results = []
 
         for flow in flows:
             scenario = flow.get("scenario", "Unnamed scenario")
+            raw_steps = flow.get("steps", [])
+
+            if isinstance(raw_steps, str):
+                raw_steps = [raw_steps]
+            
             logger.info(f"Running scenario: {scenario}")
-            results = run_test_steps(flow.get("steps", []), scenario=scenario)
+            results = run_browser_use_test(raw_steps, scenario_name=scenario)
             scenario_results.append((scenario, results))
 
         # Post all results to Jira in one comment

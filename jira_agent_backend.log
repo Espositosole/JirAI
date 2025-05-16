@@ -1602,3 +1602,268 @@ Call log:
 2025-05-15 15:59:24,000 - INFO - Running scenario: Remove item and verify cart badge update
 2025-05-15 15:59:34,841 - INFO - Results posted to Jira for issue: JAI-11
 2025-05-15 15:59:34,842 - INFO - 127.0.0.1 - - [15/May/2025 15:59:34] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:23:29,348 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:23:30,660 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 09:23:30,660 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 09:23:30,662 - INFO -  * Restarting with stat
+2025-05-16 09:23:32,344 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:23:32,376 - WARNING -  * Debugger is active!
+2025-05-16 09:23:32,380 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 09:24:16,382 - INFO - 127.0.0.1 - - [16/May/2025 09:24:16] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:24:16,640 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 09:24:19,478 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 09:24:22,658 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 09:24:34,204 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 09:24:34,208 - INFO - Generated 10 test scenarios
+2025-05-16 09:24:34,209 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:42,924 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:46,089 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:48,565 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:51,061 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:53,462 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:56,008 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:24:58,501 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:25:00,869 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:25:03,226 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:25:09,219 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 09:25:09,220 - INFO - 127.0.0.1 - - [16/May/2025 09:25:09] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:29:58,821 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\browser_use_runner.py', reloading
+2025-05-16 09:29:59,003 - INFO -  * Restarting with stat
+2025-05-16 09:30:01,892 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:30:02,064 - WARNING -  * Debugger is active!
+2025-05-16 09:30:02,068 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 09:33:39,496 - INFO -  * Detected change in 'C:\\Users\\sesposito\\Repos\\ai-jira-ui-tester\\browser_use_runner.py', reloading
+2025-05-16 09:33:39,605 - INFO -  * Restarting with stat
+2025-05-16 09:33:41,304 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:33:41,337 - WARNING -  * Debugger is active!
+2025-05-16 09:33:41,341 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 09:37:04,191 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:37:04,245 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 09:37:04,246 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 09:37:04,247 - INFO -  * Restarting with stat
+2025-05-16 09:37:05,780 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:37:05,806 - WARNING -  * Debugger is active!
+2025-05-16 09:37:05,809 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 09:37:18,758 - INFO - 127.0.0.1 - - [16/May/2025 09:37:18] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:37:19,006 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 09:37:21,552 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 09:37:24,913 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 09:37:35,250 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 09:37:35,257 - INFO - Generated 10 test scenarios
+2025-05-16 09:37:35,257 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:38,211 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:40,900 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:43,129 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:45,237 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:47,592 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:37:50,011 - INFO - Running scenario: Unnamed scenario
+2025-05-16 09:58:08,241 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:58:08,406 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 09:58:08,407 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 09:58:08,408 - INFO -  * Restarting with stat
+2025-05-16 09:58:09,878 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 09:58:09,904 - WARNING -  * Debugger is active!
+2025-05-16 09:58:09,908 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 09:58:19,982 - INFO - 127.0.0.1 - - [16/May/2025 09:58:19] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:58:20,231 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 09:58:23,303 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 09:58:26,958 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 09:58:36,498 - INFO - 127.0.0.1 - - [16/May/2025 09:58:36] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 09:58:36,818 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 09:58:40,025 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': ['testing-in-progress'], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 09:58:41,346 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 09:58:41,357 - INFO - Generated 2 test scenarios
+2025-05-16 09:58:41,358 - INFO - Running scenario: Cart badge updates in real-time when adding items
+2025-05-16 09:58:45,221 - INFO - Running scenario: Cart badge updates in real-time when removing items
+2025-05-16 09:58:51,168 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 09:58:51,171 - INFO - Generated 1 test scenarios
+2025-05-16 09:58:51,171 - INFO - Running scenario: Check cart badge updates in real-time
+2025-05-16 09:58:51,385 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 09:58:51,386 - INFO - 127.0.0.1 - - [16/May/2025 09:58:51] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:10:55,845 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 11:10:56,701 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 11:10:56,701 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 11:10:56,704 - INFO -  * Restarting with stat
+2025-05-16 11:10:58,393 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 11:10:58,419 - WARNING -  * Debugger is active!
+2025-05-16 11:10:58,423 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 11:11:31,302 - INFO - 127.0.0.1 - - [16/May/2025 11:11:31] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:11:31,558 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 11:11:34,465 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 11:11:38,137 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 11:11:51,679 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 11:11:51,686 - INFO - Generated 1 test scenarios
+2025-05-16 11:11:51,686 - INFO - Running scenario: Display number of items in cart on icon badge
+2025-05-16 11:11:59,514 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 11:11:59,515 - INFO - 127.0.0.1 - - [16/May/2025 11:11:59] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:32:03,249 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 11:32:03,419 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 11:32:03,420 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 11:32:03,421 - INFO -  * Restarting with stat
+2025-05-16 11:32:04,991 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 11:32:05,016 - WARNING -  * Debugger is active!
+2025-05-16 11:32:05,024 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 11:32:23,483 - INFO - 127.0.0.1 - - [16/May/2025 11:32:23] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:32:23,733 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 11:32:26,705 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 11:32:30,008 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 11:32:55,951 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 11:32:55,958 - INFO - Generated 3 test scenarios
+2025-05-16 11:32:55,958 - INFO - Running scenario: Add one item to cart and check badge
+2025-05-16 11:32:59,592 - INFO - Running scenario: Add multiple items to cart and check badge
+2025-05-16 11:33:02,559 - INFO - Running scenario: Remove item from cart and check badge
+2025-05-16 11:33:08,915 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 11:33:08,917 - INFO - 127.0.0.1 - - [16/May/2025 11:33:08] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:33:16,676 - INFO - 127.0.0.1 - - [16/May/2025 11:33:16] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:33:16,986 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 11:33:18,319 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-16 11:33:18,320 - INFO - 127.0.0.1 - - [16/May/2025 11:33:18] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:34:31,350 - INFO - 127.0.0.1 - - [16/May/2025 11:34:31] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 11:34:31,610 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 11:34:34,966 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 11:34:38,427 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 12:44:50,567 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 12:44:51,880 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 12:44:51,880 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 12:44:51,883 - INFO -  * Restarting with stat
+2025-05-16 12:44:53,775 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 12:44:53,804 - WARNING -  * Debugger is active!
+2025-05-16 12:44:53,809 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 12:45:12,714 - INFO - 127.0.0.1 - - [16/May/2025 12:45:12] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 12:45:12,967 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 12:45:15,547 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 12:45:18,172 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 12:45:30,942 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 12:45:30,964 - INFO - Generated 3 test scenarios
+2025-05-16 12:45:30,964 - INFO - Running scenario: Validate real-time update of cart badge when an item is added
+2025-05-16 12:45:31,810 - INFO - 127.0.0.1 - - [16/May/2025 12:45:31] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-16 12:46:38,986 - INFO - 127.0.0.1 - - [16/May/2025 12:46:38] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 12:46:39,235 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 12:46:41,738 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': ['testing-in-progress'], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 12:46:56,113 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 12:46:56,114 - INFO - Generated 3 test scenarios
+2025-05-16 12:46:56,115 - INFO - Running scenario: Verify the cart badge updates when an item is added to the cart
+2025-05-16 12:46:56,121 - INFO - 127.0.0.1 - - [16/May/2025 12:46:56] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-16 12:54:09,926 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 12:54:09,971 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 12:54:09,971 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 12:54:09,973 - INFO -  * Restarting with stat
+2025-05-16 12:54:11,567 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 12:54:11,590 - WARNING -  * Debugger is active!
+2025-05-16 12:54:11,599 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 12:54:27,970 - INFO - 127.0.0.1 - - [16/May/2025 12:54:27] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 12:54:28,221 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 12:54:30,708 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 12:54:33,236 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 12:54:47,449 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 12:54:47,453 - INFO - Generated 3 test scenarios
+2025-05-16 12:54:47,453 - INFO - Running scenario: Verify the cart badge updates in real-time when an item is added
+2025-05-16 12:54:52,287 - ERROR - Error in agent execution: 'str' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\jira_agent_backend.py", line 87, in trigger_agent
+    results = run_browser_use_test(
+        flow.get("steps", []), scenario_name=scenario
+    )
+  File "C:\Users\sesposito\Repos\ai-jira-ui-tester\browser_use_runner.py", line 56, in run_browser_use_test
+    screenshot_file = os.path.join(output_dir, step.get("screenshot_filename"))
+                                               ^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+2025-05-16 12:54:52,290 - INFO - 127.0.0.1 - - [16/May/2025 12:54:52] "[35m[1mPOST /trigger-agent HTTP/1.1[0m" 500 -
+2025-05-16 13:00:20,310 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 13:00:20,348 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.16:5000
+2025-05-16 13:00:20,348 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 13:00:20,350 - INFO -  * Restarting with stat
+2025-05-16 13:00:22,237 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 13:00:22,265 - WARNING -  * Debugger is active!
+2025-05-16 13:00:22,269 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 13:00:38,000 - INFO - 127.0.0.1 - - [16/May/2025 13:00:38] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 13:00:38,261 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 13:00:40,451 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 13:00:44,142 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 13:00:57,310 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 13:00:57,314 - INFO - Generated 3 test scenarios
+2025-05-16 13:00:57,315 - INFO - Running scenario: Verify the cart badge updates in real-time when an item is added
+2025-05-16 13:01:01,153 - INFO - Running scenario: Verify the cart badge updates in real-time when an item is removed
+2025-05-16 13:01:04,894 - INFO - Running scenario: Verify the cart badge displays correct number of items after refreshing the page
+2025-05-16 13:01:13,253 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 13:01:13,260 - INFO - 127.0.0.1 - - [16/May/2025 13:01:13] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:18:26,744 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 14:18:26,917 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.177:5000
+2025-05-16 14:18:26,917 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 14:18:26,919 - INFO -  * Restarting with stat
+2025-05-16 14:18:28,733 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 14:18:28,762 - WARNING -  * Debugger is active!
+2025-05-16 14:18:28,773 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 14:18:30,873 - INFO - 127.0.0.1 - - [16/May/2025 14:18:30] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:18:31,120 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 14:18:34,348 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 14:18:37,988 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 14:18:46,700 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 14:18:46,705 - INFO - Generated 3 test scenarios
+2025-05-16 14:18:46,705 - INFO - Running scenario: Validate the real-time update of cart badge when an item is added
+2025-05-16 14:18:48,440 - INFO - 127.0.0.1 - - [16/May/2025 14:18:48] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:18:48,748 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 14:18:51,596 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': ['testing-in-progress'], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 14:18:53,115 - INFO - Running scenario: Validate the real-time update of cart badge when an item is removed
+2025-05-16 14:18:56,313 - INFO - Running scenario: Validate the cart badge count when multiple items are added
+2025-05-16 14:19:01,442 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 14:19:01,561 - INFO - Generated 3 test scenarios
+2025-05-16 14:19:01,562 - INFO - Running scenario: Verify the cart badge updates in real-time when an item is added
+2025-05-16 14:19:03,912 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 14:19:03,912 - INFO - 127.0.0.1 - - [16/May/2025 14:19:03] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:19:05,306 - INFO - Running scenario: Verify the cart badge updates in real-time when an item is removed
+2025-05-16 14:19:08,982 - INFO - Running scenario: Verify the cart badge is accurate when multiple items are added
+2025-05-16 14:19:15,837 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 14:19:15,839 - INFO - 127.0.0.1 - - [16/May/2025 14:19:15] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:41:48,437 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 14:41:48,618 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.65.177:5000
+2025-05-16 14:41:48,618 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-16 14:41:48,620 - INFO -  * Restarting with stat
+2025-05-16 14:41:50,242 - INFO - Starting Jira Agent Backend on 0.0.0.0:5000
+2025-05-16 14:41:50,265 - WARNING -  * Debugger is active!
+2025-05-16 14:41:50,274 - INFO -  * Debugger PIN: 835-841-490
+2025-05-16 14:42:06,641 - INFO - 127.0.0.1 - - [16/May/2025 14:42:06] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:42:06,891 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 14:42:09,820 - INFO - Story fetched: {'key': 'JAI-11', 'summary': 'Update Cart Icon Counter', 'description': '* *Summary*: Display number of items in cart on icon badge\n* *Acceptance Criteria*:\n** Cart badge updates in real-time\n\nFrom this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]\n\n\n\nNotes:\n_Credentials_\nuserName: standard_user\n\npassword: secret_sauce', 'labels': [], 'customfields': {'url': 'From this URL:  [Swag Labs|https://www.saucedemo.com/inventory.html]', 'steps': []}}
+2025-05-16 14:42:13,104 - INFO - [JIRA] Added 'testing-in-progress' label to JAI-11
+2025-05-16 14:42:25,349 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-16 14:42:25,355 - INFO - Generated 3 test scenarios
+2025-05-16 14:42:25,355 - INFO - Running scenario: Validate real-time update of cart badge when item is added
+2025-05-16 14:42:29,580 - INFO - Running scenario: Validate real-time update of cart badge when item is removed
+2025-05-16 14:42:33,476 - INFO - Running scenario: Validate cart badge displays zero when all items are removed
+2025-05-16 14:42:41,084 - INFO - Results posted to Jira for issue: JAI-11
+2025-05-16 14:42:41,085 - INFO - 127.0.0.1 - - [16/May/2025 14:42:41] "POST /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:43:00,888 - INFO - 127.0.0.1 - - [16/May/2025 14:43:00] "OPTIONS /trigger-agent HTTP/1.1" 200 -
+2025-05-16 14:43:01,203 - INFO - Triggering agent for issue: JAI-11
+2025-05-16 14:43:02,800 - INFO - Issue JAI-11 already has auto-tested label, skipping test
+2025-05-16 14:43:02,802 - INFO - 127.0.0.1 - - [16/May/2025 14:43:02] "POST /trigger-agent HTTP/1.1" 200 -
