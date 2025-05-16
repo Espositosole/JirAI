@@ -1,8 +1,0 @@
-[
-  {
-    "action": "comment",
-    "description": "Navigate to 'https://www.saucedemo.com/inventory.html'. Login with username 'standard_user' and password 'secret_sauce'. Add multiple items to the cart. Remove one item from the cart. Verify that the cart badge updates with the correct number of items in real-time.",
-    "screenshot": true,
-    "screenshot_filename": "validate_real-time_update_of_cart_badge_when_item_is_removed_step_1_comment.png"
-  }
-]
