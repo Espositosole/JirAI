@@ -24,6 +24,10 @@ def post_results_to_jira(issue_key, scenario_results: list):
         failed_steps = []
 
         for i, result in enumerate(results, start=1):
+            screenshot = result.get("screenshot", "")
+            if screenshot and os.path.exists(screenshot):
+                screenshots_to_zip.append(screenshot)
+
             if result["status"] != "passed":
                 failed_steps.append((i, result))
                 scenario_failed = True
@@ -42,14 +46,17 @@ def post_results_to_jira(issue_key, scenario_results: list):
                 if error:
                     summary += f"   - ❗ Error: {error}\n"
                 if screenshot and os.path.exists(screenshot):
-                    screenshots_to_zip.append(screenshot)
                     summary += f"   - 📎 Screenshot: `{os.path.basename(screenshot)}`\n"
 
             summary += "\n❌ Scenario Failed\n"
         else:
+            final_shot = results[-1].get("screenshot") if results else None
+            if final_shot and os.path.exists(final_shot):
+                summary += f"\n   - 📎 Screenshot: `{os.path.basename(final_shot)}`"
             summary += "\n✅ PASSED — all steps succeeded\n"
 
     zip_filename = f"screenshots/test_results_{issue_key}_{timestamp}.zip"
+    screenshots_to_zip = list(dict.fromkeys(screenshots_to_zip))
     if screenshots_to_zip:
         summary += (
             f"\n📦 Screenshots are bundled in `{os.path.basename(zip_filename)}`\n"

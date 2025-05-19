@@ -64,12 +64,16 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
                 step_result["status"] = "passed"
                 print(f"✅ Step {index+1} succeeded")
 
-                if index == len(steps) - 1:
-                    page.wait_for_timeout(1000)
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    screenshot_path = f"screenshots/{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
+                page.wait_for_timeout(1000)
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                screenshot_path = (
+                    f"screenshots/{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
+                )
+                try:
                     page.screenshot(path=screenshot_path, full_page=True)
                     step_result["screenshot"] = screenshot_path
+                except Exception as screenshot_error:
+                    print(f"⚠️ Failed to capture screenshot: {screenshot_error}")
 
             except Exception as e:
                 print(f"❌ Step {index+1} failed: {e}")
