@@ -3,6 +3,8 @@ import json
 import uuid
 import os
 
+from reporter import TestStepResult
+
 
 def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
     scenario_id = scenario_name.replace(" ", "_").lower()
@@ -58,13 +60,11 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
         for i, step in enumerate(structured_steps, start=1):
             screenshot_file = os.path.join(output_dir, step.get("screenshot_filename"))
             structured_results.append(
-                {
-                    "step": step,
-                    "status": "passed",  # optionally parse actual status later
-                    "screenshot": (
-                        screenshot_file if os.path.exists(screenshot_file) else None
-                    ),
-                }
+                TestStepResult(
+                    step=step,
+                    status="passed",  # optionally parse actual status later
+                    screenshot=screenshot_file if os.path.exists(screenshot_file) else None,
+                )
             )
 
         return structured_results
@@ -72,10 +72,11 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
     except subprocess.CalledProcessError as e:
         print("[Runner] ❌ Execution failed:", e)
         return [
-            {
-                "step": {"action": "browser-use"},
-                "status": "failed",
-                "error": str(e),
-                "screenshot": None,
-            }
+            TestStepResult(
+                step={"action": "browser-use"},
+                status="failed",
+                error=str(e),
+                screenshot=None,
+            )
         ]
+

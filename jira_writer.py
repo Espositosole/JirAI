@@ -1,4 +1,5 @@
 from datetime import datetime
+from dataclasses import asdict, is_dataclass
 from jira_reader import connect_to_jira
 import os
 import zipfile
@@ -24,8 +25,9 @@ def post_results_to_jira(issue_key, scenario_results: list):
         failed_steps = []
 
         for i, result in enumerate(results, start=1):
-            if result["status"] != "passed":
-                failed_steps.append((i, result))
+            r_dict = asdict(result) if is_dataclass(result) else result
+            if r_dict["status"] != "passed":
+                failed_steps.append((i, r_dict))
                 scenario_failed = True
                 all_passed = False
 
@@ -89,3 +91,4 @@ def post_results_to_jira(issue_key, scenario_results: list):
 
     except Exception as e:
         print(f"[JIRA] ❌ Failed to update issue: {e}")
+

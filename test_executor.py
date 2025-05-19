@@ -3,6 +3,8 @@ from playwright.sync_api import sync_playwright
 import time
 import os
 
+from reporter import TestStepResult
+
 def run_test_steps(steps, scenario="Unnamed scenario"):
     results = []
     os.makedirs("screenshots", exist_ok=True)
@@ -15,7 +17,7 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
         page = context.new_page()
 
         for index, step in enumerate(steps):
-            step_result = {"step": step, "status": "", "screenshot": ""}
+            step_result = TestStepResult(step=step, status="")
             try:
                 action = step.get("action")
                 context_data = step.get("context", {})
@@ -61,7 +63,7 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
                     for item in expected_items:
                         assert item in found_items, f"'{item}' not found in cart"
 
-                step_result["status"] = "passed"
+                step_result.status = "passed"
                 print(f"✅ Step {index+1} succeeded")
 
                 if index == len(steps) - 1:
@@ -69,16 +71,16 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
                     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                     screenshot_path = f"screenshots/{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
                     page.screenshot(path=screenshot_path, full_page=True)
-                    step_result["screenshot"] = screenshot_path
+                    step_result.screenshot = screenshot_path
 
             except Exception as e:
                 print(f"❌ Step {index+1} failed: {e}")
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 screenshot_path = f"screenshots/error_{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
                 page.screenshot(path=screenshot_path, full_page=True)
-                step_result["status"] = "failed"
-                step_result["error"] = str(e)
-                step_result["screenshot"] = screenshot_path
+                step_result.status = "failed"
+                step_result.error = str(e)
+                step_result.screenshot = screenshot_path
 
             results.append(step_result)
 

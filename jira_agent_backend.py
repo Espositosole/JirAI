@@ -96,12 +96,21 @@ def trigger_agent():
         post_results_to_jira(issue_key, scenario_results)
         logger.info(f"Results posted to Jira for issue: {issue_key}")
 
+        scenario_results_json = []
+        for scenario, results in scenario_results:
+            scenario_results_json.append(
+                (
+                    scenario,
+                    [r.to_dict() if hasattr(r, "to_dict") else r for r in results],
+                )
+            )
+
         return jsonify(
             {
                 "status": "success",
                 "issue_key": issue_key,
                 "scenarios_tested": len(flows),
-                "results": scenario_results,
+                "results": scenario_results_json,
             }
         )
 
