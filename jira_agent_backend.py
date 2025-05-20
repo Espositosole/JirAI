@@ -7,7 +7,8 @@ from jira_reader import get_user_story, get_issue_labels, connect_to_jira
 from nlp_parser import extract_test_steps
 from executor import run_test_steps
 from jira_writer import post_results_to_jira
-from browser_use_runner import run_browser_use_test
+from browser_use_runner_lib import run_browser_use_test_hybrid
+
 
 # Configure logging
 logging.basicConfig(
@@ -87,9 +88,19 @@ def trigger_agent():
 
             if isinstance(raw_steps, str):
                 raw_steps = [raw_steps]
-            
+
             logger.info(f"Running scenario: {scenario}")
-            results = run_browser_use_test(raw_steps, scenario_name=scenario)
+            result_obj = run_browser_use_test_hybrid(story["description"], scenario)
+            results = [
+                {
+                    "step": {"description": r.step},
+                    "status": r.status,
+                    "error": r.error,
+                    "screenshot": None,  # Optional if you integrate screenshots later
+                }
+                for r in result_obj.results
+            ]
+
             scenario_results.append((scenario, results))
 
         # Post all results to Jira in one comment
