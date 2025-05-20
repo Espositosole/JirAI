@@ -5,7 +5,7 @@ import os
 import logging
 from jira_reader import get_user_story, get_issue_labels, connect_to_jira
 from nlp_parser import extract_test_steps
-from test_executor import run_test_steps
+from executor import run_test_steps
 from jira_writer import post_results_to_jira
 from browser_use_runner import run_browser_use_test
 

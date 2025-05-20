@@ -2,6 +2,7 @@ import subprocess
 import json
 import uuid
 import os
+import re
 
 from reporter import TestStepResult
 
@@ -43,7 +44,6 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
         input_filename,
         "--screenshot",
         output_dir,
-        "--headless",
     ]
 
     print(f"[Runner] Executing scenario '{scenario_name}'")
@@ -56,16 +56,51 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
         print("[Runner Output]", result.stdout)
 
         # Step 4: Collect results
+        match = re.search(r"(\{.*?\}|\[.*?\])", result.stdout, re.DOTALL)
+        parsed = None
+        if match:
+            try:
+                parsed = json.loads(match.group(1))
+                if isinstance(parsed, dict) and "steps" in parsed:
+                    parsed = parsed.get("steps")
+            except json.JSONDecodeError:
+                parsed = None
+        
         structured_results = []
-        for i, step in enumerate(structured_steps, start=1):
-            screenshot_file = os.path.join(output_dir, step.get("screenshot_filename"))
-            structured_results.append(
-                TestStepResult(
-                    step=step,
-                    status="passed",  # optionally parse actual status later
-                    screenshot=screenshot_file if os.path.exists(screenshot_file) else None,
+        if isinstance(parsed, list):
+            for idx, step in enumerate(structured_steps):
+                step_result = parsed[idx] if idx < len(parsed) else {}
+                screenshot_filename = step_result.get("screenshot_filename")
+                screenshot_file = (
+                    os.path.join(output_dir, screenshot_filename)
+                    if screenshot_filename
+                    else None
                 )
+                if screenshot_file and not os.path.exists(screenshot_file):
+                    screenshot_file = None
+                structured_results.append(
+                    TestStepResult(
+                        step=step,
+                        status=step_result.get("status", "failed"),
+                        error=step_result.get("error"),
+                        screenshot=screenshot_file,
+                    )
+                )
+        else:
+            error_msg = (
+                result.stdout.strip().splitlines()[0]
+                if result.stdout
+                else "Unable to parse browser-use output"
             )
+            for step in structured_steps:
+                structured_results.append(
+                    TestStepResult(
+                        step=step,
+                        status="failed",
+                        error=error_msg,
+                        screenshot=None,
+                    )
+                )
 
         return structured_results
 
@@ -79,4 +114,3 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
                 screenshot=None,
             )
         ]
-
