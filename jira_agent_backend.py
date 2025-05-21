@@ -113,7 +113,6 @@ def trigger_agent():
                         "step": {"description": r.step},
                         "status": r.status,
                         "error": r.error,
-                        "screenshot": None,
                     }
                     for r in result_obj.results
                 ]

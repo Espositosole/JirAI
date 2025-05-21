@@ -4,11 +4,11 @@ from reporter import TestStepResult
 
 class TestTestStepResult(unittest.TestCase):
     def test_to_dict(self):
-        ts = TestStepResult(step={"action": "go"}, status="passed", screenshot="img.png")
+        ts = TestStepResult(step={"action": "go"}, status="passed")
         d = ts.to_dict()
         self.assertEqual(d["step"]["action"], "go")
         self.assertEqual(d["status"], "passed")
-        self.assertEqual(d["screenshot"], "img.png")
+        self.assertNotIn("screenshot", d)
         self.assertIsNone(d.get("error"))
 
 

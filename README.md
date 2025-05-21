@@ -38,12 +38,13 @@ This exposes a `/trigger-agent` endpoint. Send a POST request containing the Jir
 ```bash
 curl -X POST http://localhost:5000/trigger-agent -H "Content-Type: application/json" -d '{"issueKey": "ABC-123"}'
 ```
-The agent will parse the issue, generate test flows and execute them with `browser-use`. Screenshots and logs are stored locally and the results are posted back to Jira.
+The agent will parse the issue, generate test flows and execute them with `browser-use`. Logs are stored locally and the results are posted back to Jira.
 
 ## Next Steps
 - Better error handling and retries
 - Support for additional test runners
 - Automatic scheduling or integration with CI/CD pipelines
+- Screenshot capture and attachment to test results
 
 ## Acknowledgements
 Huge thanks to the **browser-use** team for providing the automation engine that makes these experiments possible.
