@@ -31,28 +31,55 @@ async def run_agent_with_browser_use(
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            history = await agent.run()
+            resp = await agent.run()
             final_result = getattr(agent, "final_result", None)
             if callable(final_result):
                 final_result = final_result()
-            else:
-                final_result = "No summary available"
+            history_entries = None
+            if isinstance(resp, list):
+                history_entries = resp
+            elif isinstance(resp, dict) and isinstance(resp.get("history"), list):
+                history_entries = resp.get("history")
+            if history_entries is None:
+                history_entries = getattr(agent, "history", [])
 
             results = []
-            for step in history:
-                command = step[0]
-                evals = step[1] if isinstance(step[1], list) else [step[1]]
+            for entry in history_entries:
+                if isinstance(entry, (tuple, list)):
+                    action = entry[0]
+                    evals = entry[1] if len(entry) > 1 else []
+                elif isinstance(entry, dict):
+                    action = (
+                        entry.get("command")
+                        or entry.get("action")
+                        or entry.get("step")
+                    )
+                    evals = entry.get("evals") or entry.get("evaluation") or []
+                else:
+                    continue
+
+                if action in {"history", "DONE"}:
+                    continue
+
+                evals = evals if isinstance(evals, list) else [evals]
 
                 for ev in evals:
                     passed = getattr(ev, "passed", None)
-                    reason = getattr(ev, "reason", "No reason provided.")
+                    reason = getattr(ev, "reason", None)
+                    if passed is None and isinstance(ev, dict):
+                        passed = ev.get("passed")
+                        reason = ev.get("reason") or ev.get("error")
                     status = "passed" if passed else "failed"
+                    if not passed and not reason:
+                        reason = "No reason provided."
 
-                    print(f"[ACTION] {command} — {status.upper()} — {reason}")
+                    print(
+                        f"[ACTION] {action} — {status.upper()} — {reason or 'OK'}"
+                    )
 
                     results.append(
                         StepResult(
-                            step=command,
+                            step=action,
                             status=status,
                             error=None if passed else reason,
                         )

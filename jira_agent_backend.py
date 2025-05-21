@@ -90,7 +90,11 @@ def trigger_agent():
                 raw_steps = [raw_steps]
 
             logger.info(f"Running scenario: {scenario}")
-            result_obj = run_browser_use_test_hybrid(story["description"], scenario)
+            steps_prompt = "\n".join(
+                s if isinstance(s, str) else s.get("description") or s.get("action", "")
+                for s in raw_steps
+            )
+            result_obj = run_browser_use_test_hybrid(steps_prompt, scenario)
             results = [
                 {
                     "step": {"description": r.step},
