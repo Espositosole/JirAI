@@ -20,6 +20,11 @@ def post_results_to_jira(issue_key, scenario_results: list):
 
     for s_idx, (scenario, results) in enumerate(scenario_results, start=1):
         summary += f"\n\n🔹 Scenario {s_idx}: {scenario}"
+
+        # Optional: if ScenarioResult is a Pydantic model with .final_result
+        if hasattr(results, "final_result") and results.final_result:
+            summary += f"\n🧠 Final Result: {results.final_result}"
+
         scenario_failed = False
         failed_steps = []
 
@@ -33,7 +38,11 @@ def post_results_to_jira(issue_key, scenario_results: list):
             for i, result in failed_steps:
                 step = result["step"]
                 status = result["status"]
-                step_name = step.get("description") or step.get("action", f"Step {i}")
+                step_name = (
+                    step.get("description")
+                    or step.get("action")
+                    or step.get("step", f"Step {i}")
+                )
                 error = result.get("error", "")
                 screenshot = result.get("screenshot", "")
 
