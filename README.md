@@ -44,6 +44,7 @@ The agent will parse the issue, generate test flows and execute them with `brows
 - Better error handling and retries
 - Support for additional test runners
 - Automatic scheduling or integration with CI/CD pipelines
+- Screenshot capture and attachment to test results
 
 ## Acknowledgements
 Huge thanks to the **browser-use** team for providing the automation engine that makes these experiments possible.
