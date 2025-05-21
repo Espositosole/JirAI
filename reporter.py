@@ -9,7 +9,6 @@ class TestStepResult:
     step: Dict[str, Any]
     status: str
     error: Optional[str] = None
-    screenshot: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Return a plain dictionary representation."""

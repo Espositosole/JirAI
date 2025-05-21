@@ -1,13 +1,9 @@
-from datetime import datetime
 from playwright.sync_api import sync_playwright
-import time
-import os
 
 from reporter import TestStepResult
 
 def run_test_steps(steps, scenario="Unnamed scenario"):
     results = []
-    os.makedirs("screenshots", exist_ok=True)
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -68,19 +64,12 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
 
                 if index == len(steps) - 1:
                     page.wait_for_timeout(1000)
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    screenshot_path = f"screenshots/{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
-                    page.screenshot(path=screenshot_path, full_page=True)
-                    step_result.screenshot = screenshot_path
 
             except Exception as e:
                 print(f"❌ Step {index+1} failed: {e}")
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                screenshot_path = f"screenshots/error_{scenario.replace(' ', '_').lower()}_step{index+1}_{action}_{timestamp}.png"
-                page.screenshot(path=screenshot_path, full_page=True)
                 step_result.status = "failed"
                 step_result.error = str(e)
-                step_result.screenshot = screenshot_path
+
 
             results.append(step_result)
 

@@ -1,7 +1,6 @@
 import subprocess
 import json
 import uuid
-import os
 import re
 
 from reporter import TestStepResult
@@ -11,8 +10,6 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
     scenario_id = scenario_name.replace(" ", "_").lower()
     run_id = uuid.uuid4().hex[:8]
     input_filename = f"browser_use_flow_{scenario_id}_{run_id}.json"
-    output_dir = "screenshots"
-    os.makedirs(output_dir, exist_ok=True)
 
     # Step 1: Normalize steps
     structured_steps = []
@@ -22,15 +19,9 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
                 {
                     "action": "comment",  # fallback action for unstructured steps
                     "description": s,
-                    "screenshot": True,
-                    "screenshot_filename": f"{scenario_id}_step_{i}_comment.png",
                 }
             )
         else:
-            s["screenshot"] = True
-            s["screenshot_filename"] = (
-                f"{scenario_id}_step_{i}_{s.get('action', 'unknown')}.png"
-            )
             structured_steps.append(s)
 
     # Step 2: Write test plan to .json
@@ -38,13 +29,7 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
         json.dump(structured_steps, f, indent=2)
 
     # Step 3: Build command
-    command = [
-        "browser-use",
-        "run",
-        input_filename,
-        "--screenshot",
-        output_dir,
-    ]
+    command = ["browser-use", "run", input_filename]
 
     print(f"[Runner] Executing scenario '{scenario_name}'")
 
@@ -70,20 +55,11 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
         if isinstance(parsed, list):
             for idx, step in enumerate(structured_steps):
                 step_result = parsed[idx] if idx < len(parsed) else {}
-                screenshot_filename = step_result.get("screenshot_filename")
-                screenshot_file = (
-                    os.path.join(output_dir, screenshot_filename)
-                    if screenshot_filename
-                    else None
-                )
-                if screenshot_file and not os.path.exists(screenshot_file):
-                    screenshot_file = None
                 structured_results.append(
                     TestStepResult(
                         step=step,
                         status=step_result.get("status", "failed"),
                         error=step_result.get("error"),
-                        screenshot=screenshot_file,
                     )
                 )
         else:
@@ -98,7 +74,6 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
                         step=step,
                         status="failed",
                         error=error_msg,
-                        screenshot=None,
                     )
                 )
 
@@ -111,6 +86,5 @@ def run_browser_use_test(steps, scenario_name="Unnamed Scenario"):
                 step={"action": "browser-use"},
                 status="failed",
                 error=str(e),
-                screenshot=None,
             )
         ]
