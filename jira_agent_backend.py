@@ -4,7 +4,7 @@ import sys
 import os
 import logging
 from threading import Lock
-from jira_reader import get_user_story, get_issue_labels, connect_to_jira
+from jira_reader import get_user_story, connect_to_jira
 from nlp_parser import extract_test_steps
 from jira_writer import post_results_to_jira
 from browser_use_runner_lib import run_browser_use_test_hybrid
@@ -70,17 +70,14 @@ def trigger_agent():
 
             logger.info(f"Generated {len(flows)} test scenarios")
 
-            # ✅ POST SUGGESTIONS
             scenario_titles = [
                 f.get("scenario", f"Scenario {i+1}") for i, f in enumerate(flows)
             ]
-            post_scenario_suggestions(issue_key, scenario_titles)
+            suggested_time = post_scenario_suggestions(issue_key, scenario_titles)
+            selection = wait_for_test_selection(issue_key, since_time=suggested_time)
 
-            # ✅ WAIT FOR SELECTION
-            selection = wait_for_test_selection(issue_key)
             if selection == []:
                 try:
-                    # Remove label
                     current_issue = connect_to_jira().issue(issue_key)
                     labels = current_issue.fields.labels or []
                     if "testing-in-progress" in labels:
@@ -90,7 +87,6 @@ def trigger_agent():
                             f"[JIRA] 🗑️ Removed 'testing-in-progress' label due to timeout"
                         )
 
-                    # Post comment
                     jira.add_comment(
                         issue_key,
                         "⏳ No test selection was received within 5 minutes. You can retrigger this test by moving the issue back into the QA column.",
@@ -107,6 +103,7 @@ def trigger_agent():
                         "message": "No test selection received",
                     }
                 )
+
             if selection != "all":
                 flows = [flows[i] for i in selection]
 
