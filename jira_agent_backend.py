@@ -3,12 +3,12 @@ from flask_cors import CORS
 import sys
 import os
 import logging
-from threading import Lock  # ✅ NEW
-from jira_reader import get_user_story, get_issue_labels, connect_to_jira
+from threading import Lock
+from jira_reader import get_user_story, connect_to_jira
 from nlp_parser import extract_test_steps
-from executor import run_test_steps
 from jira_writer import post_results_to_jira
 from browser_use_runner_lib import run_browser_use_test_hybrid
+from jira_test_selector import post_scenario_suggestions, wait_for_test_selection
 
 # Configure logging
 logging.basicConfig(
@@ -24,12 +24,12 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-agent_lock = Lock()  # ✅ NEW
+agent_lock = Lock()
 
 
 @app.route("/trigger-agent", methods=["POST"])
 def trigger_agent():
-    with agent_lock:  # ✅ Ensure one agent execution at a time
+    with agent_lock:
         try:
             data = request.json
             issue_key = data.get("issueKey")
@@ -43,7 +43,6 @@ def trigger_agent():
 
             logger.info(f"Triggering agent for issue: {issue_key}")
 
-            # Check if already tested
             jira = connect_to_jira()
             issue = jira.issue(issue_key)
             labels = issue.fields.labels
@@ -60,9 +59,53 @@ def trigger_agent():
                     }
                 )
 
-            # Get story
             story = get_user_story(issue_key)
             logger.info(f"Story fetched: {story}")
+
+            flows = extract_test_steps(story)
+            if isinstance(flows, list) and all(
+                isinstance(s, dict) and "action" in s for s in flows
+            ):
+                flows = [{"scenario": "Unnamed scenario", "steps": flows}]
+
+            logger.info(f"Generated {len(flows)} test scenarios")
+
+            scenario_titles = [
+                f.get("scenario", f"Scenario {i+1}") for i, f in enumerate(flows)
+            ]
+            suggested_time = post_scenario_suggestions(issue_key, scenario_titles)
+            selection = wait_for_test_selection(issue_key, since_time=suggested_time)
+
+            if selection == []:
+                try:
+                    current_issue = connect_to_jira().issue(issue_key)
+                    labels = current_issue.fields.labels or []
+                    if "testing-in-progress" in labels:
+                        labels.remove("testing-in-progress")
+                        current_issue.update(fields={"labels": labels})
+                        print(
+                            f"[JIRA] 🗑️ Removed 'testing-in-progress' label due to timeout"
+                        )
+
+                    jira.add_comment(
+                        issue_key,
+                        "⏳ No test selection was received within 5 minutes. You can retrigger this test by moving the issue back into the QA column.",
+                    )
+                except Exception as e:
+                    print(
+                        f"[JIRA] ⚠️ Could not update label or comment after timeout: {e}"
+                    )
+
+                return jsonify(
+                    {
+                        "status": "skipped",
+                        "issue_key": issue_key,
+                        "message": "No test selection received",
+                    }
+                )
+
+            if selection != "all":
+                flows = [flows[i] for i in selection]
 
             # Add "testing-in-progress" label
             try:
@@ -76,17 +119,6 @@ def trigger_agent():
                     )
             except Exception as e:
                 logger.warning(f"[JIRA] Could not add 'testing-in-progress' label: {e}")
-
-            # Get test scenarios from GPT
-            flows = extract_test_steps(story)
-
-            # Wrap flat format if needed
-            if isinstance(flows, list) and all(
-                isinstance(s, dict) and "action" in s for s in flows
-            ):
-                flows = [{"scenario": "Unnamed scenario", "steps": flows}]
-
-            logger.info(f"Generated {len(flows)} test scenarios")
 
             scenario_results = []
 
@@ -113,13 +145,13 @@ def trigger_agent():
                         "step": {"description": r.step},
                         "status": r.status,
                         "error": r.error,
+                        "screenshot": None,
                     }
                     for r in result_obj.results
                 ]
 
                 scenario_results.append((scenario, results))
 
-            # Post to Jira
             post_results_to_jira(issue_key, scenario_results)
             logger.info(f"Results posted to Jira for issue: {issue_key}")
 
