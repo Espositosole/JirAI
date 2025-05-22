@@ -8,7 +8,7 @@ from openai import OpenAI
 from pathlib import Path
 
 env_path = Path(__file__).resolve().parent.parent / "ai-jira-ui-tester/.env"
-load_dotenv(dotenv_path=env_path)
+load_dotenv(dotenv_path=env_path, override=True)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 SYSTEM_PROMPT = """
