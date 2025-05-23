@@ -1,39 +1,32 @@
 function checkQAColumn() {
-    console.log("[Extension] Starting QA column check process...");
+    console.log("[Extension] Checking board columns for agent triggers...");
 
     const cards = document.querySelectorAll('[data-testid="platform-board-kit.ui.card.card"]');
-    
-    let processedCount = 0;
-    let skippedCount = 0;
-    let totalQACards = 0;
-    
+
     cards.forEach(card => {
         const columnContainer = card.closest('[data-testid^="platform-board-kit.ui.column"]');
         const columnTitleEl = columnContainer?.querySelector('[data-testid*="column-name"]');
         const columnTitle = columnTitleEl?.textContent?.trim();
 
-        if (columnTitle === "QA") {
-            totalQACards++;
-            const issueKey = card.getAttribute("data-issue-key") || card.textContent?.match(/[A-Z]+-\d+/)?.[0];
-            
-            if (issueKey) {
-                // Check for tested label
-                const hasTestedLabel = checkForTestedLabel(card);
-                
-                chrome.runtime.sendMessage({
-                    action: 'triggerAgent',
-                    issueKey: issueKey,
-                    hasTestedLabel: hasTestedLabel
-                });
-                
-                processedCount++;
-            } else {
-                skippedCount++;
-            }
+        const issueKey = card.getAttribute("data-issue-key") || card.textContent?.match(/[A-Z]+-\d+/)?.[0];
+        if (!issueKey) return;
+
+        const hasTestedLabel = checkForTestedLabel(card);
+
+        if (columnTitle === "In Progress") {
+            chrome.runtime.sendMessage({
+                action: 'suggestScenarios',
+                issueKey: issueKey,
+                hasTestedLabel: hasTestedLabel
+            });
+        } else if (columnTitle === "QA") {
+            chrome.runtime.sendMessage({
+                action: 'triggerAgent',
+                issueKey: issueKey,
+                hasTestedLabel: hasTestedLabel
+            });
         }
     });
-    
-    console.log(`[Extension] QA column check complete. Found ${totalQACards} QA cards: ${processedCount} processed, ${skippedCount} skipped (no issue key).`);
 }
 
 // Check if card has a "tested" label

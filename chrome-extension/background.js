@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             console.error('[Agent] Failed to create notification:', error);
         }
 
-        fetch(AGENT_BACKEND_URL || 'http://localhost:5000/trigger-agent', {
+        fetch(AGENT_BACKEND_URL || 'http://localhost:5000/run-tests', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -100,6 +100,23 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             } catch (error) {
                 console.error('[Agent] Failed to create error notification:', error);
             }
+        });
+    } else if (request.action === 'suggestScenarios') {
+        const { issueKey } = request;
+
+        fetch(AGENT_BACKEND_URL || 'http://localhost:5000/suggest-scenarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ issueKey })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(`[Agent] ✅ Scenarios suggested for ${issueKey}`, data);
+        })
+        .catch(error => {
+            console.error(`[Agent] ❌ Failed to suggest scenarios for ${issueKey}`, error);
         });
     }
 });
