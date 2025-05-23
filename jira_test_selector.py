@@ -14,7 +14,7 @@ def post_scenario_suggestions(issue_key: str, scenarios: list[str]):
 
     comment_obj = jira.add_comment(issue_key, comment)
     print(f"[JIRA] ✅ Posted scenario suggestions for {issue_key}")
-    return comment_obj.created  # Return timestamp
+    return comment_obj.created
 
 def wait_for_test_selection(issue_key: str, since_time: str, timeout_seconds=300, poll_interval=10):
     jira = connect_to_jira()
@@ -34,12 +34,13 @@ def wait_for_test_selection(issue_key: str, since_time: str, timeout_seconds=300
             body = c.body.lower().strip()
             if body.startswith("run"):
                 print(f"[JIRA] ✅ Found test selection comment: {body}")
-                return parse_test_selection(body)
+                selection = parse_test_selection(body)
+                return (selection, c.author.accountId)
 
         time.sleep(poll_interval)
 
     print("[JIRA] ⚠️ No test selection received in time.")
-    return []
+    return ([], None)
 
 def parse_test_selection(comment_text: str):
     if "run all" in comment_text:

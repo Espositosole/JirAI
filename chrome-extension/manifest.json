@@ -9,6 +9,7 @@
         "notifications"
     ],
     "host_permissions": [
+        "http://localhost:5000/*",
         "https://*.atlassian.net/*"
     ],
     "background": {
@@ -18,10 +19,12 @@
         {
             "matches": ["https://*.atlassian.net/*"],
             "js": ["content.js"],
-            "run_at": "document_idle"
+            "run_at": "document_idle",
+            "all_frames": true
         }
     ],
     "action": {
+        "default_title": "Jira Test Agent",
         "default_popup": "popup.html",
         "default_icon": "icon.png"
     },
