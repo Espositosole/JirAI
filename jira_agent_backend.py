@@ -10,11 +10,14 @@ from jira_reader import get_user_story, connect_to_jira
 from nlp_parser import extract_test_steps
 from jira_writer import post_results_to_jira
 from browser_use_runner_lib import run_browser_use_test_hybrid
-from jira_test_selector import (
-    post_scenario_suggestions,
-    wait_for_test_selection,
-    get_test_selection,
+from jira_writer import (
+    post_results_to_jira,
+    create_subtask_with_scenarios,
+    read_scenarios_from_subtask,
 )
+from browser_use_runner_lib import run_browser_use_test_hybrid
+# Legacy functions from the old interactive workflow are still available in
+# jira_test_selector, but the subtask-based flow does not require them here.
 
 # Configure logging
 logging.basicConfig(
@@ -53,14 +56,13 @@ def suggest_scenarios():
             if isinstance(flows, list) and all(isinstance(s, dict) and "action" in s for s in flows):
                 flows = [{"scenario": "Unnamed scenario", "steps": flows}]
 
-            scenario_titles = [f.get("scenario", f"Scenario {i+1}") for i, f in enumerate(flows)]
-            suggested_time = post_scenario_suggestions(issue_key, scenario_titles)
+            subtask_key = create_subtask_with_scenarios(issue_key, flows)
 
             data_file = PENDING_DIR / f"{issue_key}.json"
             with open(data_file, "w") as f:
-                json.dump({"suggested_time": suggested_time, "flows": flows}, f)
+                json.dump({"subtask_key": subtask_key}, f)
 
-            return jsonify({"status": "suggested", "issue_key": issue_key, "scenarios": len(flows)})
+            return jsonify({"status": "subtask_created", "issue_key": issue_key, "subtask_key": subtask_key})
         except Exception as e:
             logger.error(f"Error suggesting scenarios: {e}", exc_info=True)
             return jsonify({"status": "error", "message": str(e)}), 500
@@ -87,16 +89,15 @@ def run_tests():
             with open(data_file) as f:
                 info = json.load(f)
 
-            flows = info.get("flows", [])
-            suggested_time = info.get("suggested_time")
+            subtask_key = info.get("subtask_key")
+            if not subtask_key:
+                logger.error("No subtask key stored for this issue")
+                return jsonify({"status": "error", "message": "No subtask key"}), 400
 
-            selection = get_test_selection(issue_key, since_time=suggested_time)
-            if selection == []:
-                logger.info("No test selection found, skipping execution")
-                return jsonify({"status": "skipped", "message": "No test selection"})
-
-            if selection != "all":
-                flows = [flows[i] for i in selection]
+            flows = read_scenarios_from_subtask(subtask_key)
+            if not flows:
+                logger.error("No scenarios found in subtask")
+                return jsonify({"status": "error", "message": "No scenarios found"}), 400
 
             # Add "testing-in-progress" label
             try:
@@ -135,8 +136,8 @@ def run_tests():
 
                 scenario_results.append((scenario, results))
 
-            post_results_to_jira(issue_key, scenario_results)
-            logger.info(f"Results posted to Jira for issue: {issue_key}")
+            post_results_to_jira(subtask_key, scenario_results, parent_issue_key=issue_key)
+            logger.info(f"Results posted to Jira subtask: {subtask_key}")
 
             data_file.unlink(missing_ok=True)
 
@@ -149,7 +150,7 @@ def run_tests():
                     )
                 )
 
-            return jsonify({"status": "success", "issue_key": issue_key, "scenarios_tested": len(flows), "results": scenario_results_json})
+            return jsonify({"status": "success", "issue_key": issue_key, "subtask_key": subtask_key, "scenarios_tested": len(flows), "results": scenario_results_json})
         except Exception as e:
             logger.error(f"Error running stored tests: {e}", exc_info=True)
             return jsonify({"status": "error", "message": str(e)}), 500
@@ -197,42 +198,7 @@ def trigger_agent():
 
             logger.info(f"Generated {len(flows)} test scenarios")
 
-            scenario_titles = [
-                f.get("scenario", f"Scenario {i+1}") for i, f in enumerate(flows)
-            ]
-            suggested_time = post_scenario_suggestions(issue_key, scenario_titles)
-            selection = wait_for_test_selection(issue_key, since_time=suggested_time)
-
-            if selection == []:
-                try:
-                    current_issue = connect_to_jira().issue(issue_key)
-                    labels = current_issue.fields.labels or []
-                    if "testing-in-progress" in labels:
-                        labels.remove("testing-in-progress")
-                        current_issue.update(fields={"labels": labels})
-                        print(
-                            f"[JIRA] 🗑️ Removed 'testing-in-progress' label due to timeout"
-                        )
-
-                    jira.add_comment(
-                        issue_key,
-                        "⏳ No test selection was received within 5 minutes. You can retrigger this test by moving the issue back into the QA column.",
-                    )
-                except Exception as e:
-                    print(
-                        f"[JIRA] ⚠️ Could not update label or comment after timeout: {e}"
-                    )
-
-                return jsonify(
-                    {
-                        "status": "skipped",
-                        "issue_key": issue_key,
-                        "message": "No test selection received",
-                    }
-                )
-
-            if selection != "all":
-                flows = [flows[i] for i in selection]
+            subtask_key = create_subtask_with_scenarios(issue_key, flows)
 
             # Add "testing-in-progress" label
             try:
@@ -246,6 +212,8 @@ def trigger_agent():
                     )
             except Exception as e:
                 logger.warning(f"[JIRA] Could not add 'testing-in-progress' label: {e}")
+
+            flows = read_scenarios_from_subtask(subtask_key)
 
             scenario_results = []
 
@@ -279,8 +247,8 @@ def trigger_agent():
 
                 scenario_results.append((scenario, results))
 
-            post_results_to_jira(issue_key, scenario_results)
-            logger.info(f"Results posted to Jira for issue: {issue_key}")
+            post_results_to_jira(subtask_key, scenario_results, parent_issue_key=issue_key)
+            logger.info(f"Results posted to Jira subtask: {subtask_key}")
 
             scenario_results_json = []
             for scenario, results in scenario_results:
@@ -295,6 +263,7 @@ def trigger_agent():
                 {
                     "status": "success",
                     "issue_key": issue_key,
+                    "subtask_key": subtask_key,
                     "scenarios_tested": len(flows),
                     "results": scenario_results_json,
                 }
