@@ -14,17 +14,19 @@ function checkQAColumn() {
         const hasTestedLabel = checkForTestedLabel(card);
 
         if (columnTitle === "In Progress") {
-            chrome.runtime.sendMessage({
-                action: 'suggestScenarios',
-                issueKey: issueKey,
-                hasTestedLabel: hasTestedLabel
-            });
+        chrome.runtime.sendMessage({
+            action: 'triggerAgent',
+            issueKey: issueKey,
+            status: 'in progress',
+            hasTestedLabel: hasTestedLabel
+        });
         } else if (columnTitle === "QA") {
-            chrome.runtime.sendMessage({
-                action: 'triggerAgent',
-                issueKey: issueKey,
-                hasTestedLabel: hasTestedLabel
-            });
+        chrome.runtime.sendMessage({
+            action: 'triggerAgent',
+            issueKey: issueKey,
+            status: 'qa',
+            hasTestedLabel: hasTestedLabel
+        });
         }
     });
 }

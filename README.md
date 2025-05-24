@@ -66,3 +66,7 @@ Huge thanks to the **browser-use** team for providing the automation engine that
 
 ## Contributing
 Pull requests are welcome! Feel free to open issues or suggestions.
+
+Before submitting a pull request, please make sure that no log files are
+included in your commits. The repository's `.gitignore` already excludes `*.log`
+files, so double-check `git status` to ensure no logs accidentally slip in.

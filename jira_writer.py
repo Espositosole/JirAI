@@ -32,7 +32,7 @@ def create_subtask_with_scenarios(parent_issue_key: str, scenarios: list[dict]) 
         "Edit the JSON below to update the test scenarios before moving the parent issue to QA.\n\n"
         "```json\n" + json.dumps(scenarios, indent=2) + "\n```"
     )
-    # Determine the correct sub-task issue type for this project
+    # Determine the correct subtask issue type for this project
     issue_type_id = None
     try:
         meta = jira.createmeta(projectKeys=project_key)
@@ -44,7 +44,7 @@ def create_subtask_with_scenarios(parent_issue_key: str, scenarios: list[dict]) 
     except Exception:
         pass
 
-    issue_type = {"id": issue_type_id} if issue_type_id else {"name": "Sub-task"}
+    issue_type = {"id": issue_type_id} if issue_type_id else {"name": "Subtask"}
 
     subtask = jira.create_issue(
         project={"key": project_key},
@@ -83,39 +83,27 @@ def post_results_to_jira(
     all_passed = True
 
     for s_idx, (scenario, results) in enumerate(scenario_results, start=1):
-        summary += f"\n\n🔹 Scenario {s_idx}: {scenario}"
+        summary += f"\\nScenario {s_idx}: {scenario}\\n"
+        scenario_passed = all(r["status"] == "passed" for r in results)
+        emoji = "✅" if scenario_passed else "❌"
+        summary += f"Status: {'passed' if scenario_passed else 'failed'} {emoji}\\n"
 
-        # Optional: if ScenarioResult is a Pydantic model with .final_result
-        if hasattr(results, "final_result") and results.final_result:
-            summary += f"\n🧠 Final Result: {results.final_result}"
+        # If result_obj contains a 'final_result' field, include it
+        final_result = next(
+            (r.get("final_result") for r in results if r.get("final_result")), None
+        )
+        if final_result:
+            summary += f"Result: {final_result}\\n"
 
-        scenario_failed = False
-        failed_steps = []
+        # Only show steps if it failed
+        if not scenario_passed:
+            for i, r in enumerate(results, 1):
+                step = r["step"]
+                desc = step.get("description") or step.get("action", f"Step {i}")
+                status = r["status"]
+                summary += f"- {desc} → {'✅' if status == 'passed' else '❌'}\\n"
 
-        for i, result in enumerate(results, start=1):
-            if result["status"] != "passed":
-                failed_steps.append((i, result))
-                scenario_failed = True
-                all_passed = False
-
-        if scenario_failed:
-            for i, result in failed_steps:
-                step = result["step"]
-                status = result["status"]
-                step_name = (
-                    step.get("description")
-                    or step.get("action")
-                    or step.get("step", f"Step {i}")
-                )
-                error = result.get("error", "")
-                summary += f"\n{i}. *{step_name}*\n"
-                summary += f"   - ❌ Status: {status}\n"
-                if error:
-                    summary += f"   - ❗ Error: {error}\n"
-
-            summary += "\n❌ Scenario Failed\n"
-        else:
-            summary += "\n✅ PASSED — all steps succeeded\n"
+        summary += "\\n"
 
     summary += (
         "\n## ✅ Overall: All Tests Passed\n"
