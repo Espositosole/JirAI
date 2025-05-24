@@ -3,4 +3,4 @@ __pycache__/
 *.pyc
 .vscode/
 .venv/
-jira_agent_backend.log
+.log

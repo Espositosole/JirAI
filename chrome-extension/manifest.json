@@ -9,6 +9,7 @@
         "notifications"
     ],
     "host_permissions": [
+        "http://localhost:5000/*",
         "https://*.atlassian.net/*"
     ],
     "background": {

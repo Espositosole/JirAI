@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Activate virtual environment

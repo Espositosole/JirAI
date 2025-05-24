@@ -1,6 +1,11 @@
 import time
 import re
-from dateutil.parser import parse as parse_date
+from datetime import datetime
+try:
+    from dateutil.parser import parse as parse_date
+except Exception:  # pragma: no cover - fallback if dateutil not installed
+    def parse_date(val: str):
+        return datetime.fromisoformat(val.replace('Z', '+00:00'))
 from jira_reader import connect_to_jira
 
 def post_scenario_suggestions(issue_key: str, scenarios: list[str]):
@@ -53,4 +58,19 @@ def parse_test_selection(comment_text: str):
         except ValueError:
             pass
     print("[JIRA] ⚠️ Could not parse selection. Ignoring.")
+    return []
+
+
+def get_test_selection(issue_key: str, since_time: str):
+    """Return the latest test selection comment after ``since_time`` if present."""
+    jira = connect_to_jira()
+    since = parse_date(since_time)
+    comments = jira.comments(issue_key)
+    for c in comments:
+        if parse_date(c.created) <= since:
+            continue
+        body = c.body.lower().strip()
+        if body.startswith("run"):
+            print(f"[JIRA] ✅ Found test selection comment: {body}")
+            return parse_test_selection(body)
     return []
