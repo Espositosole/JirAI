@@ -1,3 +1,4 @@
+from jira_writer import format_test_results
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
@@ -32,12 +33,12 @@ def suggest_scenarios():
     try:
         data = request.json
         issue_key = data.get("issueKey")
-
         if not issue_key:
             return jsonify({"status": "error", "message": "issueKey required"}), 400
 
         story = get_user_story(issue_key)
         scenarios = extract_test_steps(story)
+
         seen = set()
         unique_scenarios = []
         for s in scenarios:
@@ -61,17 +62,16 @@ def suggest_scenarios():
                 f"[JIRA] Subtask already exists for {issue_key}: {existing.key}"
             )
             return jsonify({"status": "skipped", "subtask": existing.key})
+
         add_label(issue_key, "scenarios-generated")
         subtask_key = create_subtask_with_steps(issue_key, summary, desc)
 
-        # ✅ Notify QA user and assign subtask
         qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
         jira = connect_to_jira()
         resp = jira._session.put(
             f"{jira._options['server']}/rest/api/3/issue/{subtask_key}/assignee",
             json={"accountId": qa_user_id},
         )
-
         print(f"[DEBUG] Assign issue response: {resp.status_code} - {resp.text}")
         print(f"[JIRA] 👤 Assigned subtask {subtask_key} to QA user.")
 
@@ -88,7 +88,7 @@ def suggest_scenarios():
                         },
                         {
                             "type": "text",
-                            "text": f" suggested test scenarios have been created in {subtask_key}. Please review or edit before QA.",
+                            "text": f" Suggested test scenarios have been created in {subtask_key}. Please review or edit before moving to QA.",
                         },
                     ],
                 }
@@ -113,7 +113,6 @@ def run_tests():
     try:
         data = request.json
         issue_key = data.get("issueKey")
-
         if not issue_key:
             return jsonify({"status": "error", "message": "issueKey required"}), 400
 
@@ -125,26 +124,22 @@ def run_tests():
             )
 
         story = get_user_story(issue_key)
-        scenarios = extract_test_steps(story)
+        context = story["description"]
+        subtask_description = subtask.fields.description
 
-        results = []
-        for scenario in scenarios:
-            name = scenario.get("scenario", "Unnamed scenario")
-            raw_steps = scenario.get("steps", [])
-            prompt = "\n".join(
-                s if isinstance(s, str) else s.get("description") or s.get("action", "")
-                for s in raw_steps
-            )
-            result_obj = run_browser_use_test_hybrid(prompt, name)
-            result_text = f"Scenario: {name}\n"
-            for step in result_obj.results:
-                emoji = "✅" if step.status == "passed" else "❌"
-                result_text += f"{emoji} {step.step}\n"
-            results.append(result_text)
+        import re
 
-        result_comment = "\n\n".join(results)
+        raw_steps = re.split(r"\\n\\d+\\.\\s", subtask_description.strip())
+        scenarios = [
+            {"scenario": f"Scenario {i}", "steps": f"{context}\\n\\n{step}"}
+            for i, step in enumerate(raw_steps, 1)
+            if step.strip()
+        ]
+
+        result_comment = format_test_results(scenarios, run_browser_use_test_hybrid)
+
         jira = connect_to_jira()
-        jira.add_comment(subtask.key, f"🧪 Test Results:\n\n{result_comment}")
+        jira.add_comment(subtask.key, f"🧪 Test Results:\\n\\n{result_comment}")
 
         remove_label(issue_key, "scenarios-selected")
         add_label(issue_key, "auto-tested")
@@ -156,7 +151,6 @@ def run_tests():
             f"✅ Tests executed. Please check results in subtask: {subtask.key}",
         )
 
-        # ✅ Mention QA user again if available
         qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
         mention2 = {
             "type": "doc",
@@ -185,7 +179,7 @@ def run_tests():
         transition_subtask_to_done(subtask.key)
 
         return jsonify(
-            {"status": "completed", "subtask": subtask.key, "results": len(results)}
+            {"status": "completed", "subtask": subtask.key, "results": len(scenarios)}
         )
 
     except Exception as e:

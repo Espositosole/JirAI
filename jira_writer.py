@@ -1,4 +1,5 @@
 from datetime import datetime
+from browser_use_runner_lib import run_browser_use_test_hybrid
 from jira_reader import connect_to_jira
 import json
 import re
@@ -83,17 +84,17 @@ def post_results_to_jira(
     all_passed = True
 
     for s_idx, (scenario, results) in enumerate(scenario_results, start=1):
-        summary += f"\\nScenario {s_idx}: {scenario}\\n"
+        summary += f"\nScenario {s_idx}: {scenario}\n"
         scenario_passed = all(r["status"] == "passed" for r in results)
         emoji = "✅" if scenario_passed else "❌"
-        summary += f"Status: {'passed' if scenario_passed else 'failed'} {emoji}\\n"
+        summary += f"Status: {'passed' if scenario_passed else 'failed'} {emoji}\n"
 
         # If result_obj contains a 'final_result' field, include it
         final_result = next(
             (r.get("final_result") for r in results if r.get("final_result")), None
         )
         if final_result:
-            summary += f"Result: {final_result}\\n"
+            summary += f"Result: {final_result}\n"
 
         # Only show steps if it failed
         if not scenario_passed:
@@ -101,9 +102,42 @@ def post_results_to_jira(
                 step = r["step"]
                 desc = step.get("description") or step.get("action", f"Step {i}")
                 status = r["status"]
-                summary += f"- {desc} → {'✅' if status == 'passed' else '❌'}\\n"
+                summary += f"- {desc} → {'✅' if status == 'passed' else '❌'}\n"
 
-        summary += "\\n"
+        summary += "\n"
+        summary += f"\n\n🔹 Scenario {s_idx}: {scenario}"
+
+        # Optional: if ScenarioResult is a Pydantic model with .final_result
+        if hasattr(results, "final_result") and results.final_result:
+            summary += f"\n🧠 Final Result: {results.final_result}"
+
+        scenario_failed = False
+        failed_steps = []
+
+        for i, result in enumerate(results, start=1):
+            if result["status"] != "passed":
+                failed_steps.append((i, result))
+                scenario_failed = True
+                all_passed = False
+
+        if scenario_failed:
+            for i, result in failed_steps:
+                step = result["step"]
+                status = result["status"]
+                step_name = (
+                    step.get("description")
+                    or step.get("action")
+                    or step.get("step", f"Step {i}")
+                )
+                error = result.get("error", "")
+                summary += f"\n{i}. *{step_name}*\n"
+                summary += f"   - ❌ Status: {status}\n"
+                if error:
+                    summary += f"   - ❗ Error: {error}\n"
+
+            summary += "\n❌ Scenario Failed\n"
+        else:
+            summary += "\n✅ PASSED — all steps succeeded\n"
 
     summary += (
         "\n## ✅ Overall: All Tests Passed\n"
@@ -127,3 +161,27 @@ def post_results_to_jira(
 
     except Exception as e:
         print(f"[JIRA] ❌ Failed to update issue: {e}")
+
+
+def format_test_results(subtask_description, runner):
+    result_comment = ""
+    name = "QA-defined"
+    result_obj = runner(subtask_description, name)
+
+    scenario_passed = all(step.status == "passed" for step in result_obj.results)
+    emoji = "✅" if scenario_passed else "❌"
+
+    result_comment += f"Scenario: {name}\n"
+    result_comment += f"Status: {'passed' if scenario_passed else 'failed'} {emoji}\n"
+
+    if hasattr(result_obj, "final_result") and result_obj.final_result:
+        result_comment += f"Result: {result_obj.final_result}\n"
+
+    if not scenario_passed:
+        for step in result_obj.results:
+            result_comment += (
+                f"- {step.step} → {'✅' if step.status == 'passed' else '❌'}\n"
+            )
+
+    result_comment += "\n"
+    return result_comment

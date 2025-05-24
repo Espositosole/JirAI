@@ -30,6 +30,7 @@ def get_subtask_with_label(parent_key: str, label: str):
     jql = (
         f"parent = {parent_key} "
         f"AND issuetype in subTaskIssueTypes() "
+        f'AND labels = "{label}" '
         f'AND summary ~ "Suggested Test Scenarios"'
     )
     issues = jira.search_issues(jql)
