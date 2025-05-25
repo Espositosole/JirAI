@@ -163,25 +163,62 @@ def post_results_to_jira(
         print(f"[JIRA] ❌ Failed to update issue: {e}")
 
 
-def format_test_results(subtask_description, runner):
-    result_comment = ""
-    name = "QA-defined"
-    result_obj = runner(subtask_description, name)
+def format_test_results(
+    scenarios: list[dict], runner, subtask_key: str, parent_issue_key: str
+):
+    from jira_reader import connect_to_jira
 
-    scenario_passed = all(step.status == "passed" for step in result_obj.results)
-    emoji = "✅" if scenario_passed else "❌"
+    jira = connect_to_jira()
 
-    result_comment += f"Scenario: {name}\n"
-    result_comment += f"Status: {'passed' if scenario_passed else 'failed'} {emoji}\n"
+    for i, s in enumerate(scenarios, 1):
+        name = s["scenario"]
+        context = s["steps"]
+        result_obj = runner(context, name)
 
-    if hasattr(result_obj, "final_result") and result_obj.final_result:
-        result_comment += f"Result: {result_obj.final_result}\n"
+        scenario_passed = all(step.status == "passed" for step in result_obj.results)
+        emoji = "✅" if scenario_passed else "❌"
 
-    if not scenario_passed:
+        result_comment = f"### 🧪 Scenario {i}: {name}\n"
+        result_comment += (
+            f"**Status:** {'✅ Passed' if scenario_passed else '❌ Failed'}\n"
+        )
+
+        if result_obj.final_result:
+            result_comment += f"**Result:** {result_obj.final_result}\n"
+
+        result_comment += "\n**Steps:**\n"
         for step in result_obj.results:
+            status = step.status
             result_comment += (
-                f"- {step.step} → {'✅' if step.status == 'passed' else '❌'}\n"
+                f"- {step.step} → {'✅' if status == 'passed' else '❌'}\n"
             )
+            if step.error and status == "failed":
+                result_comment += f"  - ❗ *Error:* {step.error}\n"
 
-    result_comment += "\n"
-    return result_comment
+        result_comment += "\n"
+
+        jira.add_comment(subtask_key, result_comment)
+        print(f"[JIRA] ✅ Comment posted for scenario {i}")
+
+    # ✅ Final comment to indicate all scenarios done
+    qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
+    mention = {
+        "type": "doc",
+        "version": 1,
+        "content": [
+            {
+                "type": "paragraph",
+                "content": [
+                    {"type": "mention", "attrs": {"id": qa_user_id, "text": "<@QA>"}},
+                    {
+                        "type": "text",
+                        "text": f", all test scenarios for {subtask_key} have been executed. Please review.",
+                    },
+                ],
+            }
+        ],
+    }
+    jira._session.post(
+        f"{jira._options['server']}/rest/api/3/issue/{parent_issue_key}/comment",
+        json={"body": mention},
+    )

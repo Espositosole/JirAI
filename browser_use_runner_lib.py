@@ -32,9 +32,7 @@ async def run_agent_with_browser_use(
     for attempt in range(max_retries):
         try:
             resp = await agent.run()
-            final_result = getattr(agent, "final_result", None)
-            if callable(final_result):
-                final_result = final_result()
+
             history_entries = None
             if isinstance(resp, list):
                 history_entries = resp
@@ -44,15 +42,21 @@ async def run_agent_with_browser_use(
                 history_entries = getattr(agent, "history", [])
 
             results = []
+            final_result = None
+
             for entry in history_entries:
+                # Look for final result in 'done' action
+                if isinstance(entry, dict) and "done" in entry:
+                    done_block = entry["done"]
+                    if isinstance(done_block, dict):
+                        final_result = done_block.get("text")
+
                 if isinstance(entry, (tuple, list)):
                     action = entry[0]
                     evals = entry[1] if len(entry) > 1 else []
                 elif isinstance(entry, dict):
                     action = (
-                        entry.get("command")
-                        or entry.get("action")
-                        or entry.get("step")
+                        entry.get("command") or entry.get("action") or entry.get("step")
                     )
                     evals = entry.get("evals") or entry.get("evaluation") or []
                 else:
@@ -73,9 +77,7 @@ async def run_agent_with_browser_use(
                     if not passed and not reason:
                         reason = "No reason provided."
 
-                    print(
-                        f"[ACTION] {action} — {status.upper()} — {reason or 'OK'}"
-                    )
+                    print(f"[ACTION] {action} — {status.upper()} — {reason or 'OK'}")
 
                     results.append(
                         StepResult(
@@ -86,7 +88,9 @@ async def run_agent_with_browser_use(
                     )
 
             return ScenarioResult(
-                scenario=scenario, results=results, final_result=final_result
+                scenario=scenario,
+                results=results,
+                final_result=final_result,
             )
 
         except RateLimitError as e:

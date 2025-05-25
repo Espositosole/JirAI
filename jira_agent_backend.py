@@ -1,3 +1,4 @@
+
 from jira_writer import format_test_results
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -27,15 +28,22 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
+# Runtime memory lock to avoid concurrent processing
+recent_issues = set()
 
 @app.route("/suggest-scenarios", methods=["POST"])
 def suggest_scenarios():
-    try:
-        data = request.json
-        issue_key = data.get("issueKey")
-        if not issue_key:
-            return jsonify({"status": "error", "message": "issueKey required"}), 400
+    data = request.json
+    issue_key = data.get("issueKey")
+    if not issue_key:
+        return jsonify({"status": "error", "message": "issueKey required"}), 400
 
+    global recent_issues
+    if issue_key in recent_issues:
+        return jsonify({"status": "skipped", "message": "Already being processed"}), 200
+
+    recent_issues.add(issue_key)
+    try:
         story = get_user_story(issue_key)
         scenarios = extract_test_steps(story)
 
@@ -58,9 +66,7 @@ def suggest_scenarios():
 
         existing = get_subtask_with_label(issue_key, "scenarios-generated")
         if existing:
-            logger.info(
-                f"[JIRA] Subtask already exists for {issue_key}: {existing.key}"
-            )
+            logger.info(f"[JIRA] Subtask already exists for {issue_key}: {existing.key}")
             return jsonify({"status": "skipped", "subtask": existing.key})
 
         add_label(issue_key, "scenarios-generated")
@@ -99,92 +105,63 @@ def suggest_scenarios():
             json={"body": mention},
         )
 
-        return jsonify(
-            {"status": "success", "subtask": subtask_key, "scenarios": len(scenarios)}
-        )
+        return jsonify({"status": "success", "subtask": subtask_key, "scenarios": len(scenarios)})
 
     except Exception as e:
         logger.error(f"Error in /suggest-scenarios: {str(e)}", exc_info=True)
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        recent_issues.discard(issue_key)
 
 
 @app.route("/run-tests", methods=["POST"])
 def run_tests():
-    try:
-        data = request.json
-        issue_key = data.get("issueKey")
-        if not issue_key:
-            return jsonify({"status": "error", "message": "issueKey required"}), 400
+    data = request.json
+    issue_key = data.get("issueKey")
+    if not issue_key:
+        return jsonify({"status": "error", "message": "issueKey required"}), 400
 
+    global recent_issues
+    if issue_key in recent_issues:
+        return jsonify({"status": "skipped", "message": "Tests already running"}), 200
+
+    recent_issues.add(issue_key)
+    try:
         subtask = get_subtask_with_label(issue_key, "scenarios-generated")
         if not subtask:
-            return (
-                jsonify({"status": "skipped", "message": "No test subtask found."}),
-                200,
-            )
+            return jsonify({"status": "skipped", "message": "No test subtask found."}), 200
+        
+        if subtask.fields.status.name.lower() == "done":
+            return jsonify({"status": "skipped", "message": "Test subtask is already marked as Done."}), 200
 
         story = get_user_story(issue_key)
         context = story["description"]
         subtask_description = subtask.fields.description
 
         import re
-
-        raw_steps = re.split(r"\\n\\d+\\.\\s", subtask_description.strip())
+        raw_steps = re.findall(r"\d+\.\s+(.*)", subtask_description.strip())
         scenarios = [
-            {"scenario": f"Scenario {i}", "steps": f"{context}\\n\\n{step}"}
+            {"scenario": f"Scenario {i}", "steps": f"{context}\n\n{step}"}
             for i, step in enumerate(raw_steps, 1)
             if step.strip()
         ]
 
-        result_comment = format_test_results(scenarios, run_browser_use_test_hybrid)
-
-        jira = connect_to_jira()
-        jira.add_comment(subtask.key, f"🧪 Test Results:\\n\\n{result_comment}")
+        format_test_results(scenarios, run_browser_use_test_hybrid, subtask.key, issue_key)
 
         remove_label(issue_key, "scenarios-selected")
         add_label(issue_key, "auto-tested")
         remove_label(issue_key, "testing-in-progress")
         remove_label(issue_key, "scenarios-generated")
 
-        jira.add_comment(
-            issue_key,
-            f"✅ Tests executed. Please check results in subtask: {subtask.key}",
-        )
-
-        qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
-        mention2 = {
-            "type": "doc",
-            "version": 1,
-            "content": [
-                {
-                    "type": "paragraph",
-                    "content": [
-                        {
-                            "type": "mention",
-                            "attrs": {"id": qa_user_id, "text": "<@QA>"},
-                        },
-                        {
-                            "type": "text",
-                            "text": f", test results are ready in {subtask.key}. Please review.",
-                        },
-                    ],
-                }
-            ],
-        }
-        jira._session.post(
-            f"{jira._options['server']}/rest/api/3/issue/{issue_key}/comment",
-            json={"body": mention2},
-        )
-
         transition_subtask_to_done(subtask.key)
 
-        return jsonify(
-            {"status": "completed", "subtask": subtask.key, "results": len(scenarios)}
-        )
+        return jsonify({"status": "completed", "subtask": subtask.key, "results": len(scenarios)})
 
     except Exception as e:
         logger.error(f"Error in /run-tests: {str(e)}", exc_info=True)
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        recent_issues.discard(issue_key)
 
 
 @app.route("/health", methods=["GET"])
