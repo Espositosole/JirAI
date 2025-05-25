@@ -170,35 +170,36 @@ def format_test_results(
 
     jira = connect_to_jira()
 
+    combined_comment = ""
+
     for i, s in enumerate(scenarios, 1):
         name = s["scenario"]
         context = s["steps"]
         result_obj = runner(context, name)
 
         scenario_passed = all(step.status == "passed" for step in result_obj.results)
-        emoji = "✅" if scenario_passed else "❌"
 
-        result_comment = f"### 🧪 Scenario {i}: {name}\n"
-        result_comment += (
+        combined_comment += f"### 🧪 {name} - Scenario {i}\n"
+        combined_comment += (
             f"**Status:** {'✅ Passed' if scenario_passed else '❌ Failed'}\n"
         )
 
         if result_obj.final_result:
-            result_comment += f"**Result:** {result_obj.final_result}\n"
+            combined_comment += f"**Result:** {result_obj.final_result}\n"
 
-        result_comment += "\n**Steps:**\n"
+        combined_comment += "\n**Steps:**\n"
         for step in result_obj.results:
             status = step.status
-            result_comment += (
+            combined_comment += (
                 f"- {step.step} → {'✅' if status == 'passed' else '❌'}\n"
             )
             if step.error and status == "failed":
-                result_comment += f"  - ❗ *Error:* {step.error}\n"
+                combined_comment += f"  - ❗ *Error:* {step.error}\n"
 
-        result_comment += "\n"
+        combined_comment += "\n"
 
-        jira.add_comment(subtask_key, result_comment)
-        print(f"[JIRA] ✅ Comment posted for scenario {i}")
+    jira.add_comment(subtask_key, combined_comment)
+    print(f"[JIRA] ✅ Comment posted for all scenarios")
 
     # ✅ Final comment to indicate all scenarios done
     qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
