@@ -21,9 +21,7 @@ class ScenarioResult(BaseModel):
     final_result: str | None = None
 
 
-async def run_agent_with_browser_use(
-    task_description: str, scenario: str
-) -> ScenarioResult:
+async def run_agent_with_browser_use(task_description: str, scenario: str) -> ScenarioResult:
     llm = ChatOpenAI(model="gpt-4o")
     controller = Controller()
     agent = Agent(task=task_description, controller=controller, llm=llm)
@@ -33,11 +31,6 @@ async def run_agent_with_browser_use(
         try:
             resp = await agent.run()
 
-            # Try to get final_result early
-            final_result = getattr(agent, "final_result", None)
-            if callable(final_result):
-                final_result = final_result()
-
             history_entries = None
             if isinstance(resp, list):
                 history_entries = resp
@@ -46,22 +39,47 @@ async def run_agent_with_browser_use(
             if history_entries is None:
                 history_entries = getattr(agent, "history", [])
 
+            print("\\n[DEBUG] Full history_entries:")
+            for entry in history_entries:
+                print(entry)
+
             results = []
-            final_result = None
+            final_result = getattr(agent, "final_result", None)
+            if callable(final_result):
+                final_result = final_result()
 
             for entry in history_entries:
-                # Look for final result in 'done' action
+                # Look for result inside flat 'done' block
                 if isinstance(entry, dict) and "done" in entry:
                     done_block = entry["done"]
                     if isinstance(done_block, dict):
                         final_result = done_block.get("text") or final_result
 
+                # Look for result inside nested 'command'
+                elif isinstance(entry, dict):
+                    command = entry.get("command")
+                    if isinstance(command, dict) and "done" in command:
+                        done_block = command["done"]
+                        if isinstance(done_block, dict):
+                            final_result = done_block.get("text") or final_result
+
+                # Look for printed result log
+                if isinstance(entry, str) and "📄 Result:" in entry:
+                    parts = entry.split("📄 Result:")
+                    if len(parts) > 1:
+                        extracted = parts[1].strip()
+                        if extracted:
+                            final_result = extracted
+
+                # Evaluate actions and statuses
                 if isinstance(entry, (tuple, list)):
                     action = entry[0]
                     evals = entry[1] if len(entry) > 1 else []
                 elif isinstance(entry, dict):
                     action = (
-                        entry.get("command") or entry.get("action") or entry.get("step")
+                        entry.get("command")
+                        or entry.get("action")
+                        or entry.get("step")
                     )
                     evals = entry.get("evals") or entry.get("evaluation") or []
                 else:
@@ -104,7 +122,6 @@ async def run_agent_with_browser_use(
             time.sleep(3)
         except Exception as e:
             print(f"[Runner] ❌ Agent run failed: {e}")
-            print(f"[DEBUG] Final result captured: {final_result}")
             return ScenarioResult(
                 scenario=scenario,
                 results=[
@@ -117,7 +134,6 @@ async def run_agent_with_browser_use(
                 final_result=None,
             )
 
-    print(f"[DEBUG] Final result captured: {final_result}")
     return ScenarioResult(
         scenario=scenario,
         results=[
