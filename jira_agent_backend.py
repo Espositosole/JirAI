@@ -1,4 +1,3 @@
-
 from jira_writer import format_test_results
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -30,6 +29,7 @@ CORS(app)
 
 # Runtime memory lock to avoid concurrent processing
 recent_issues = set()
+
 
 @app.route("/suggest-scenarios", methods=["POST"])
 def suggest_scenarios():
@@ -66,7 +66,9 @@ def suggest_scenarios():
 
         existing = get_subtask_with_label(issue_key, "scenarios-generated")
         if existing:
-            logger.info(f"[JIRA] Subtask already exists for {issue_key}: {existing.key}")
+            logger.info(
+                f"[JIRA] Subtask already exists for {issue_key}: {existing.key}"
+            )
             return jsonify({"status": "skipped", "subtask": existing.key})
 
         add_label(issue_key, "scenarios-generated")
@@ -105,7 +107,9 @@ def suggest_scenarios():
             json={"body": mention},
         )
 
-        return jsonify({"status": "success", "subtask": subtask_key, "scenarios": len(scenarios)})
+        return jsonify(
+            {"status": "success", "subtask": subtask_key, "scenarios": len(scenarios)}
+        )
 
     except Exception as e:
         logger.error(f"Error in /suggest-scenarios: {str(e)}", exc_info=True)
@@ -129,33 +133,48 @@ def run_tests():
     try:
         subtask = get_subtask_with_label(issue_key, "scenarios-generated")
         if not subtask:
-            return jsonify({"status": "skipped", "message": "No test subtask found."}), 200
-        
+            return (
+                jsonify({"status": "skipped", "message": "No test subtask found."}),
+                200,
+            )
         if subtask.fields.status.name.lower() == "done":
-            return jsonify({"status": "skipped", "message": "Test subtask is already marked as Done."}), 200
-
+            return (
+                jsonify(
+                    {
+                        "status": "skipped",
+                        "message": "Test subtask is already marked as Done.",
+                    }
+                ),
+                200,
+            )
+        add_label(issue_key, "testing-in-progress")
         story = get_user_story(issue_key)
         context = story["description"]
         subtask_description = subtask.fields.description
 
         import re
+
         raw_steps = re.findall(r"\d+\.\s+(.*)", subtask_description.strip())
+
         scenarios = [
-            {"scenario": f"Scenario {i}", "steps": f"{context}\n\n{step}"}
-            for i, step in enumerate(raw_steps, 1)
+            {"scenario": step.strip(), "steps": f"{context}\n\n{step.strip()}"}
+            for step in raw_steps
             if step.strip()
         ]
 
-        format_test_results(scenarios, run_browser_use_test_hybrid, subtask.key, issue_key)
-
-        remove_label(issue_key, "scenarios-selected")
-        add_label(issue_key, "auto-tested")
+        format_test_results(
+            scenarios, run_browser_use_test_hybrid, subtask.key, issue_key
+        )
+        
         remove_label(issue_key, "testing-in-progress")
         remove_label(issue_key, "scenarios-generated")
+        add_label(issue_key, "auto-tested")
 
         transition_subtask_to_done(subtask.key)
 
-        return jsonify({"status": "completed", "subtask": subtask.key, "results": len(scenarios)})
+        return jsonify(
+            {"status": "completed", "subtask": subtask.key, "results": len(scenarios)}
+        )
 
     except Exception as e:
         logger.error(f"Error in /run-tests: {str(e)}", exc_info=True)
