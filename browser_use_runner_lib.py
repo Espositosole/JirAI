@@ -33,6 +33,11 @@ async def run_agent_with_browser_use(
         try:
             resp = await agent.run()
 
+            # Try to get final_result early
+            final_result = getattr(agent, "final_result", None)
+            if callable(final_result):
+                final_result = final_result()
+
             history_entries = None
             if isinstance(resp, list):
                 history_entries = resp
@@ -49,7 +54,7 @@ async def run_agent_with_browser_use(
                 if isinstance(entry, dict) and "done" in entry:
                     done_block = entry["done"]
                     if isinstance(done_block, dict):
-                        final_result = done_block.get("text")
+                        final_result = done_block.get("text") or final_result
 
                 if isinstance(entry, (tuple, list)):
                     action = entry[0]
@@ -87,6 +92,7 @@ async def run_agent_with_browser_use(
                         )
                     )
 
+            print(f"[DEBUG] Final result captured: {final_result}")
             return ScenarioResult(
                 scenario=scenario,
                 results=results,
@@ -98,6 +104,7 @@ async def run_agent_with_browser_use(
             time.sleep(3)
         except Exception as e:
             print(f"[Runner] ❌ Agent run failed: {e}")
+            print(f"[DEBUG] Final result captured: {final_result}")
             return ScenarioResult(
                 scenario=scenario,
                 results=[
@@ -110,6 +117,7 @@ async def run_agent_with_browser_use(
                 final_result=None,
             )
 
+    print(f"[DEBUG] Final result captured: {final_result}")
     return ScenarioResult(
         scenario=scenario,
         results=[

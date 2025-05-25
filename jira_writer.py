@@ -169,8 +169,7 @@ def format_test_results(
     from jira_reader import connect_to_jira
 
     jira = connect_to_jira()
-
-    combined_comment = ""
+    combined_comment = "Automated Test Results\n\n"
 
     for i, s in enumerate(scenarios, 1):
         name = s["scenario"]
@@ -178,30 +177,29 @@ def format_test_results(
         result_obj = runner(context, name)
 
         scenario_passed = all(step.status == "passed" for step in result_obj.results)
+        emoji = "✅" if scenario_passed else "❌"
 
-        combined_comment += f"### 🧪 {name} - Scenario {i}\n"
+        combined_comment += f"\n---\n\nScenario {i}: {name}\n"
         combined_comment += (
-            f"**Status:** {'✅ Passed' if scenario_passed else '❌ Failed'}\n"
+            f"Status: {'✅ Passed' if scenario_passed else '❌ Failed'}\n"
         )
 
         if result_obj.final_result:
-            combined_comment += f"**Result:** {result_obj.final_result}\n"
+            combined_comment += f"**Result:** {result_obj.final_result.strip()}\n"
 
-        combined_comment += "\n**Steps:**\n"
-        for step in result_obj.results:
-            status = step.status
-            combined_comment += (
-                f"- {step.step} → {'✅' if status == 'passed' else '❌'}\n"
-            )
-            if step.error and status == "failed":
-                combined_comment += f"  - ❗ *Error:* {step.error}\n"
-
-        combined_comment += "\n"
+        if not scenario_passed:
+            combined_comment += "\n**Steps:**\n"
+            for step in result_obj.results:
+                combined_comment += (
+                    f"- {step.step} → {'✅' if step.status == 'passed' else '❌'}\n"
+                )
+                if step.status != "passed" and step.error:
+                    combined_comment += f"  - ❗ *Error:* {step.error}\n"
 
     jira.add_comment(subtask_key, combined_comment)
     print(f"[JIRA] ✅ Comment posted for all scenarios")
 
-    # ✅ Final comment to indicate all scenarios done
+    # Final QA mention
     qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
     mention = {
         "type": "doc",
