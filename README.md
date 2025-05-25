@@ -34,11 +34,20 @@ Start the Flask backend:
 ```bash
 python jira_agent_backend.py
 ```
-This exposes a `/trigger-agent` endpoint. Send a POST request containing the Jira issue key to run the agent:
+The backend now exposes two endpoints:
+
+- `/suggest-scenarios` – generate test scenarios for a Jira issue.
+- `/run-tests` – execute previously generated scenarios.
+
+Example request to suggest scenarios:
 ```bash
-curl -X POST http://localhost:5000/trigger-agent -H "Content-Type: application/json" -d '{"issueKey": "ABC-123"}'
+curl -X POST http://localhost:5000/suggest-scenarios -H "Content-Type: application/json" -d '{"issueKey": "ABC-123"}'
 ```
-The agent will parse the issue, generate test flows and execute them with `browser-use`. Logs are stored locally and the results are posted back to Jira.
+To later run the tests for that issue:
+```bash
+curl -X POST http://localhost:5000/run-tests -H "Content-Type: application/json" -d '{"issueKey": "ABC-123"}'
+```
+The agent stores generated flows locally, executes them with `browser-use` once triggered, and posts results back to Jira.
 
 ## Next Steps
 - Better error handling and retries
@@ -53,7 +62,11 @@ Huge thanks to the **browser-use** team for providing the automation engine that
 - `jira_reader.py` / `jira_writer.py` – helpers for interacting with Jira
 - `nlp_parser.py` – prompts OpenAI to generate test steps
 - `browser_use_runner.py` – runs the generated flows using `browser-use`
-- `jira_agent_backend.py` – Flask server exposing the `/trigger-agent` route
+- `jira_agent_backend.py` – Flask server exposing `/suggest-scenarios` and `/run-tests`
 
 ## Contributing
 Pull requests are welcome! Feel free to open issues or suggestions.
+
+Before submitting a pull request, please make sure that no log files are
+included in your commits. The repository's `.gitignore` already excludes `*.log`
+files, so double-check `git status` to ensure no logs accidentally slip in.

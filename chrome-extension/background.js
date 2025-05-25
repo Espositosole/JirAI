@@ -28,79 +28,32 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'triggerAgent') {
-        const { issueKey, hasTestedLabel } = request;
-        
-        // Skip if already labeled as tested
-        if (hasTestedLabel) {
-            console.log(`[Agent] 🔄 Skipping ${issueKey} as it's already labeled as tested`);
-            return;
-        }
-        
-        // Skip if we've already tested this in the current session
-        if (testedIssueKeys.has(issueKey)) {
-            console.log(`[Agent] 🔄 Skipping ${issueKey} as it was already tested in this session`);
-            return;
-        }
-        
-        console.log(`[Agent] 🚀 Test started for ${issueKey}`);
-        testedIssueKeys.add(issueKey); // Add to our in-memory set of tested issues
+    if (request.action === "triggerAgent") {
+        console.log("[Agent] Received triggerAgent for", request.issueKey, "with status:", request.status);
 
-        // Create notification for test start
-        try {
-            chrome.notifications.create(`test-start-${issueKey}`, {
-                type: "basic",
-                iconUrl: chrome.runtime.getURL("icon.png"),
-                title: "Jira Agent Running",
-                message: `Running tests for ${issueKey}...`,
-                priority: 2
-            });
-        } catch (error) {
-            console.error('[Agent] Failed to create notification:', error);
+        let endpoint = "";
+        if (request.status === "qa") {
+        endpoint = "run-tests";
+        } else if (request.status === "in progress") {
+        endpoint = "suggest-scenarios";
         }
 
-        fetch(AGENT_BACKEND_URL || 'http://localhost:5000/trigger-agent', {
-            method: 'POST',
+        const url = (AGENT_BACKEND_URL || 'http://localhost:5000') + '/' + endpoint;
+
+        fetch(url, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ issueKey })
+            body: JSON.stringify({
+                issueKey: request.issueKey,
+                status: request.status,
+                hasTestedLabel: request.hasTestedLabel || false
+            })
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(`[Agent] ✅ Testing complete for ${issueKey}`, data);
-
-            // Create notification for test complete
-            try {
-                chrome.notifications.create(`test-complete-${issueKey}`, {
-                    type: "basic",
-                    iconUrl: chrome.runtime.getURL("icon.png"),
-                    title: "Jira Agent ✅",
-                    message: `Test complete for ${issueKey}`,
-                    priority: 2
-                });
-            } catch (error) {
-                console.error('[Agent] Failed to create completion notification:', error);
-            }
-        })
-        .catch(error => {
-            console.error(`[Agent] ❌ Testing failed for ${issueKey}`, error);
-            // Remove from tested set since it failed
-            testedIssueKeys.delete(issueKey);
-
-            // Create notification for test failure
-            try {
-                chrome.notifications.create(`test-error-${issueKey}`, {
-                    type: "basic",
-                    iconUrl: chrome.runtime.getURL("icon.png"),
-                    title: "Jira Agent ❌",
-                    message: `Test failed for ${issueKey}`,
-                    priority: 2
-                });
-            } catch (error) {
-                console.error('[Agent] Failed to create error notification:', error);
-            }
-        });
+        .then(res => res.json())
+        .then(data => console.log("[Agent] ✅ Response:", data))
+        .catch(err => console.error("[Agent] ❌ Error:", err));
     }
 });
 

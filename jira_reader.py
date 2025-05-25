@@ -1,6 +1,13 @@
-from jira import JIRA
+try:
+    from jira import JIRA
+except Exception:  # pragma: no cover - allow import without jira package
+    JIRA = None
 import os
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except Exception:  # pragma: no cover - allow import without python-dotenv
+    def load_dotenv(*args, **kwargs):
+        pass
 import json
 from pathlib import Path
 
@@ -11,6 +18,9 @@ load_dotenv(dotenv_path=env_path, override=True)
 
 # Connect to Jira
 def connect_to_jira():
+    if JIRA is None:
+        raise RuntimeError("JIRA package not installed")
+
     jira_options = {"server": "https://agentjirai.atlassian.net"}
     print(jira_options)
     jira = JIRA(
