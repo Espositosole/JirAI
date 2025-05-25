@@ -78,7 +78,7 @@ def post_results_to_jira(
 
     jira = connect_to_jira()
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    summary = f"## 🧪 Automated Test Report\n"
+    summary = f"Automated Test Report\n"
     summary += f"_Tested on: {timestamp}_\n"
 
     all_passed = True
@@ -140,9 +140,9 @@ def post_results_to_jira(
             summary += "\n✅ PASSED — all steps succeeded\n"
 
     summary += (
-        "\n## ✅ Overall: All Tests Passed\n"
+        "\n✅ Overall: All Tests Passed\n"
         if all_passed
-        else "\n## ⚠️ Overall: Some Tests Failed\n"
+        else "\n⚠️ Overall: Some Tests Failed\n"
     )
 
     try:
@@ -166,58 +166,133 @@ def post_results_to_jira(
 def format_test_results(
     scenarios: list[dict], runner, subtask_key: str, parent_issue_key: str
 ):
+    """Simplified version that posts only name, final result, and status to JIRA subtask"""
     from jira_reader import connect_to_jira
+    import time
 
     jira = connect_to_jira()
-    combined_comment = "Automated Test Results\n\n"
 
-    for i, s in enumerate(scenarios, 1):
-        name = s["scenario"]
-        context = s["steps"]
-        result_obj = runner(context, name)
-
-        scenario_passed = all(step.status == "passed" for step in result_obj.results)
-        emoji = "✅" if scenario_passed else "❌"
-
-        combined_comment += f"\n---\n\nScenario {i}: {name}\n"
-        combined_comment += (
-            f"Status: {'✅ Passed' if scenario_passed else '❌ Failed'}\n"
-        )
-
-        if result_obj.final_result:
-            combined_comment += f"**Result:** {result_obj.final_result.strip()}\n"
-
-        if not scenario_passed:
-            combined_comment += "\n**Steps:**\n"
-            for step in result_obj.results:
-                combined_comment += (
-                    f"- {step.step} → {'✅' if step.status == 'passed' else '❌'}\n"
-                )
-                if step.status != "passed" and step.error:
-                    combined_comment += f"  - ❗ *Error:* {step.error}\n"
-
-    jira.add_comment(subtask_key, combined_comment)
-    print(f"[JIRA] ✅ Comment posted for all scenarios")
-
-    # Final QA mention
-    qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
-    mention = {
-        "type": "doc",
-        "version": 1,
-        "content": [
-            {
-                "type": "paragraph",
-                "content": [
-                    {"type": "mention", "attrs": {"id": qa_user_id, "text": "<@QA>"}},
-                    {
-                        "type": "text",
-                        "text": f", all test scenarios for {subtask_key} have been executed. Please review.",
-                    },
-                ],
-            }
-        ],
-    }
-    jira._session.post(
-        f"{jira._options['server']}/rest/api/3/issue/{parent_issue_key}/comment",
-        json={"body": mention},
+    # Build simplified results
+    all_results = []
+    overall_summary = f"Automated Test Execution Report\n"
+    overall_summary += (
+        f"_Executed on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_\n\n"
     )
+
+    overall_passed = True
+
+    print(f"[JIRA] Starting test execution for {len(scenarios)} scenarios...")
+
+    for i, scenario_data in enumerate(scenarios, 1):
+        name = scenario_data["scenario"]
+        context = scenario_data["steps"]
+
+        print(f"[JIRA] Executing scenario {i}/{len(scenarios)}: {name}")
+
+        try:
+            # Run the test
+            result_obj = runner(context, name)
+
+            # Handle ScenarioResult object
+            if hasattr(result_obj, "results"):
+                scenario_results = result_obj.results
+                final_result = (
+                    getattr(result_obj, "final_result", None) or "No result available"
+                )
+            else:
+                # Fallback if it's a different structure
+                scenario_results = result_obj if isinstance(result_obj, list) else []
+                final_result = "No result available"
+
+            # Determine if scenario passed
+            scenario_passed = getattr(result_obj, "success", False)
+
+            if not scenario_passed:
+                overall_passed = False
+
+            # Build simplified result for this scenario (only name, final result, status)
+            status_emoji = "✅" if scenario_passed else "❌"
+            scenario_summary = f"**{name}**\n"
+            scenario_summary += (
+                f"Status: {status_emoji} {'PASSED' if scenario_passed else 'FAILED'}\n"
+            )
+            scenario_summary += f"Final Result: {final_result}\n\n"
+            if not scenario_passed and scenario_results:
+                scenario_summary += "Failed Steps:\n"
+                for step in scenario_results:
+                    if getattr(step, "status", "") != "passed":
+                        step_desc = getattr(step, "step", "Unnamed Step")
+                        error_msg = getattr(step, "error", "No error message")
+                        scenario_summary += f"- ❌ {step_desc}: {error_msg}\n"
+
+            # Add to overall summary
+            overall_summary += scenario_summary
+
+            all_results.append(
+                {"scenario": name, "passed": scenario_passed, "result_obj": result_obj}
+            )
+
+        except Exception as e:
+            print(f"[JIRA] ❌ Error executing scenario {i}: {str(e)}")
+            overall_passed = False
+
+            # Simplified error format
+            error_summary = f"**{name}**\n"
+            error_summary += f"Status: ❌ EXECUTION ERROR\n"
+            error_summary += f"Final Result: {str(e)}\n\n"
+
+            overall_summary += error_summary
+
+            all_results.append({"scenario": name, "passed": False, "error": str(e)})
+
+    # Add final summary
+    overall_summary += "---\n"
+    overall_summary += f"**Summary:** {'✅ ALL TESTS PASSED' if overall_passed else '⚠️ SOME TESTS FAILED'}\n"
+    overall_summary += f"Total: {len(scenarios)} | Passed: {sum(1 for r in all_results if r['passed'])} | Failed: {len(scenarios) - sum(1 for r in all_results if r['passed'])}\n"
+
+    # Post the simplified comment to the subtask
+    try:
+        print(f"[JIRA] Posting simplified results to subtask {subtask_key}...")
+        jira.add_comment(subtask_key, overall_summary)
+        print(f"[JIRA] ✅ Simplified results posted to {subtask_key}")
+
+        # Brief delay to ensure comment is posted
+        time.sleep(1)
+
+    except Exception as e:
+        print(f"[JIRA] ❌ Failed to post results to subtask: {str(e)}")
+
+    # Mention QA user on parent issue
+    try:
+        qa_user_id = "70121:2fb0d5c3-a6a9-445b-a741-f0a2caf987fe"
+        passed_count = sum(1 for r in all_results if r["passed"])
+        mention = {
+            "type": "doc",
+            "version": 1,
+            "content": [
+                {
+                    "type": "paragraph",
+                    "content": [
+                        {
+                            "type": "mention",
+                            "attrs": {"id": qa_user_id, "text": "<@QA>"},
+                        },
+                        {
+                            "type": "text",
+                            "text": f" All test scenarios for {subtask_key} have been executed. "
+                            f"Results: {passed_count}/{len(scenarios)} passed. Please review the detailed results in the subtask.",
+                        },
+                    ],
+                }
+            ],
+        }
+        jira._session.post(
+            f"{jira._options['server']}/rest/api/3/issue/{parent_issue_key}/comment",
+            json={"body": mention},
+        )
+        print(f"[JIRA] ✅ QA mention posted to parent issue {parent_issue_key}")
+
+    except Exception as e:
+        print(f"[JIRA] ⚠️ Failed to mention QA user: {str(e)}")
+
+    return all_results
