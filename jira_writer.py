@@ -375,13 +375,7 @@ def format_test_results(
             # Run the test
             result_obj = runner(context, name)
 
-            # Debug: Print the result_obj structure
-            print(f"[DEBUG] Result object type: {type(result_obj)}")
-            print(
-                f"[DEBUG] Result object attributes: {dir(result_obj) if hasattr(result_obj, '__dict__') else 'N/A'}"
-            )
-            if hasattr(result_obj, "success"):
-                print(f"[DEBUG] Success field value: {result_obj.success}")
+            # Debug information for troubleshooting
 
             # Handle ScenarioResult object - FIXED LOGIC
             if hasattr(result_obj, "results"):
@@ -401,14 +395,10 @@ def format_test_results(
             # Method 1: Check the success field if it exists
             if hasattr(result_obj, "success"):
                 scenario_passed = result_obj.success
-                print(f"[DEBUG] Using success field: {scenario_passed}")
 
             # Method 2: Check if final result indicates success
             elif final_result and "successfully" in final_result.lower():
                 scenario_passed = True
-                print(
-                    f"[DEBUG] Using final_result success indicator: {scenario_passed}"
-                )
 
             # Method 3: Check if there's a "Task completion" step with "passed" status
             elif scenario_results:
@@ -417,7 +407,6 @@ def format_test_results(
                     step_status = getattr(step, "status", "")
                     if "Task completion" in step_name and step_status == "passed":
                         scenario_passed = True
-                        print(f"[DEBUG] Found task completion step with passed status")
                         break
 
             # Method 4: Check logs for task completion indicators

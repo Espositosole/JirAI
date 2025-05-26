@@ -38,7 +38,8 @@ class LogCapture:
         self.original_handlers = {}
         self.string_io = io.StringIO()
         self.handler = logging.StreamHandler(self.string_io)
-        self.handler.setLevel(logging.DEBUG)  # Capture all levels
+        # Capture logs at INFO level and above
+        self.handler.setLevel(logging.INFO)
 
         # Create a custom formatter to ensure we get all the info
         formatter = logging.Formatter("%(levelname)s     [%(name)s] %(message)s")
@@ -61,9 +62,9 @@ class LogCapture:
             self.original_handlers[logger_name] = log.handlers.copy()
             # Add our capturing handler
             log.addHandler(self.handler)
-            # Ensure the logger level is low enough to capture everything
-            if log.level > logging.DEBUG:
-                log.setLevel(logging.DEBUG)
+            # Capture at INFO level by default
+            if log.level > logging.INFO:
+                log.setLevel(logging.INFO)
 
         return self
 
@@ -91,11 +92,8 @@ def parse_agent_logs(
     task_completed_successfully = False
     task_failed = False
 
-    # Debug: Print all captured logs to see what we're working with
+    # Log the amount of information captured for troubleshooting
     logger.info(f"[PARSE] Processing {len(logs)} log lines for scenario: {scenario}")
-    for i, log_line in enumerate(logs):
-        if log_line.strip():
-            logger.debug(f"[PARSE] Log {i}: {log_line}")
 
     for log_line in logs:
         if not log_line.strip():

@@ -80,7 +80,6 @@ def suggest_scenarios():
             f"{jira._options['server']}/rest/api/3/issue/{subtask_key}/assignee",
             json={"accountId": qa_user_id},
         )
-        print(f"[DEBUG] Assign issue response: {resp.status_code} - {resp.text}")
         print(f"[JIRA] 👤 Assigned subtask {subtask_key} to QA user.")
 
         mention = {
