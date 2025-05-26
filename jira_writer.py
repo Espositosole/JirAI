@@ -20,6 +20,85 @@ def _extract_json_block(text: str):
     return None
 
 
+def get_subtask_status(subtask_key: str) -> str:
+    """Get the current status of a subtask."""
+    try:
+        jira = connect_to_jira()
+        issue = jira.issue(subtask_key)
+        return issue.fields.status.name
+    except Exception as e:
+        print(f"[JIRA] ❌ Error getting status for {subtask_key}: {e}")
+        return None
+
+
+def has_previous_test_execution(subtask_key: str) -> bool:
+    """Check if the subtask has any previous test execution comments."""
+    try:
+        jira = connect_to_jira()
+        issue = jira.issue(subtask_key, expand="comments")
+
+        for comment in issue.fields.comment.comments:
+            if "Automated Test Execution Report" in comment.body:
+                return True
+        return False
+    except Exception as e:
+        print(f"[JIRA] ❌ Error checking previous executions for {subtask_key}: {e}")
+        return False
+
+
+def should_execute_tests(subtask_key: str) -> tuple[bool, str]:
+    """
+    Determine if tests should be executed based on subtask status.
+
+    Returns:
+        tuple: (should_execute: bool, reason: str)
+    """
+    status = get_subtask_status(subtask_key)
+
+    if not status:
+        return False, "Could not determine subtask status"
+
+    has_previous = has_previous_test_execution(subtask_key)
+
+    # If status is DONE and we have previous execution, skip
+    if status.upper() == "DONE" and has_previous:
+        return False, f"Subtask is in DONE status with previous test execution"
+
+    # If status is not DONE, always execute (first time or re-execution)
+    if status.upper() != "DONE":
+        reason = (
+            "Re-execution triggered: status changed from DONE"
+            if has_previous
+            else "First time execution"
+        )
+        return True, reason
+
+    # If status is DONE but no previous execution, execute
+    if status.upper() == "DONE" and not has_previous:
+        return True, "First time execution in DONE status"
+
+    return True, "Default execution"
+
+
+def add_status_change_comment(subtask_key: str, reason: str):
+    """Add a comment explaining why tests are being re-executed."""
+    try:
+        jira = connect_to_jira()
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        comment = f"🔄 **Test Re-execution Triggered**\n"
+        comment += f"_Timestamp: {timestamp}_\n\n"
+        comment += f"**Reason:** {reason}\n"
+        comment += f"**Current Status:** {get_subtask_status(subtask_key)}\n\n"
+        comment += "Executing automated test scenarios...\n"
+
+        jira.add_comment(subtask_key, comment)
+        print(f"[JIRA] ✅ Status change comment added to {subtask_key}")
+
+    except Exception as e:
+        print(f"[JIRA] ❌ Failed to add status change comment: {e}")
+
+
 def create_subtask_with_scenarios(parent_issue_key: str, scenarios: list[dict]) -> str:
     """Create a subtask under ``parent_issue_key`` containing the given scenarios.
 
@@ -161,6 +240,109 @@ def post_results_to_jira(
 
     except Exception as e:
         print(f"[JIRA] ❌ Failed to update issue: {e}")
+
+
+def execute_tests_with_status_check(
+    subtask_key: str,
+    parent_issue_key: str,
+    runner=run_browser_use_test_hybrid,
+    force_execute: bool = False,
+) -> dict:
+    """
+    Enhanced test execution that respects subtask status changes.
+
+    Args:
+        subtask_key: The subtask containing test scenarios
+        parent_issue_key: The parent issue key
+        runner: Test runner function
+        force_execute: Force execution regardless of status
+
+    Returns:
+        dict with execution info and results
+    """
+    print(f"[JIRA] Checking execution conditions for subtask {subtask_key}")
+
+    # Check if we should execute tests
+    if not force_execute:
+        should_execute, reason = should_execute_tests(subtask_key)
+
+        if not should_execute:
+            print(f"[JIRA] ⏭️ Skipping execution: {reason}")
+            return {
+                "executed": False,
+                "reason": reason,
+                "subtask_key": subtask_key,
+                "status": get_subtask_status(subtask_key),
+            }
+
+        print(f"[JIRA] ✅ Proceeding with execution: {reason}")
+
+        # Add comment explaining re-execution if it's a status change
+        if "Re-execution triggered" in reason:
+            add_status_change_comment(subtask_key, reason)
+
+    # Read scenarios from subtask
+    scenarios = read_scenarios_from_subtask(subtask_key)
+
+    if not scenarios:
+        print(f"[JIRA] ❌ No scenarios found in subtask {subtask_key}")
+        return {
+            "executed": False,
+            "reason": "No test scenarios found in subtask",
+            "subtask_key": subtask_key,
+            "status": get_subtask_status(subtask_key),
+        }
+
+    print(f"[JIRA] 🚀 Executing {len(scenarios)} test scenarios...")
+
+    # Execute the tests
+    try:
+        results = format_test_results(scenarios, runner, subtask_key, parent_issue_key)
+
+        # Move subtask to DONE after successful execution
+        try:
+            jira = connect_to_jira()
+            transitions = jira.transitions(subtask_key)
+            done_transition = None
+
+            for transition in transitions:
+                if transition["name"].upper() in [
+                    "DONE",
+                    "COMPLETE",
+                    "COMPLETED",
+                    "RESOLVED",
+                ]:
+                    done_transition = transition["id"]
+                    break
+
+            if done_transition:
+                jira.transition_issue(subtask_key, done_transition)
+                print(f"[JIRA] ✅ Subtask {subtask_key} moved to DONE")
+            else:
+                print(f"[JIRA] ⚠️ Could not find DONE transition for {subtask_key}")
+
+        except Exception as e:
+            print(f"[JIRA] ❌ Failed to move subtask to DONE: {e}")
+
+        return {
+            "executed": True,
+            "reason": "Tests executed successfully",
+            "subtask_key": subtask_key,
+            "status": get_subtask_status(subtask_key),
+            "results": results,
+            "scenarios_count": len(scenarios),
+            "passed_count": sum(1 for r in results if r.get("passed", False)),
+        }
+
+    except Exception as e:
+        print(f"[JIRA] ❌ Test execution failed: {e}")
+        return {
+            "executed": True,
+            "reason": f"Test execution failed: {str(e)}",
+            "subtask_key": subtask_key,
+            "status": get_subtask_status(subtask_key),
+            "error": str(e),
+        }
 
 
 def format_test_results(
@@ -338,3 +520,50 @@ def format_test_results(
         print(f"[JIRA] ⚠️ Failed to mention QA user: {str(e)}")
 
     return all_results
+
+
+# Convenience function for batch processing multiple subtasks
+def check_and_execute_multiple_subtasks(
+    subtask_keys: list[str],
+    parent_issue_keys: list[str] = None,
+    runner=run_browser_use_test_hybrid,
+) -> list[dict]:
+    """
+    Check and execute tests for multiple subtasks.
+
+    Args:
+        subtask_keys: List of subtask keys to check
+        parent_issue_keys: List of parent issue keys (same length as subtask_keys)
+        runner: Test runner function
+
+    Returns:
+        List of execution results for each subtask
+    """
+    if parent_issue_keys and len(subtask_keys) != len(parent_issue_keys):
+        raise ValueError("subtask_keys and parent_issue_keys must have the same length")
+
+    results = []
+
+    for i, subtask_key in enumerate(subtask_keys):
+        parent_key = parent_issue_keys[i] if parent_issue_keys else None
+
+        print(f"\n[JIRA] Processing subtask {i+1}/{len(subtask_keys)}: {subtask_key}")
+
+        try:
+            result = execute_tests_with_status_check(
+                subtask_key=subtask_key, parent_issue_key=parent_key, runner=runner
+            )
+            results.append(result)
+
+        except Exception as e:
+            print(f"[JIRA] ❌ Failed to process subtask {subtask_key}: {e}")
+            results.append(
+                {
+                    "executed": False,
+                    "reason": f"Processing failed: {str(e)}",
+                    "subtask_key": subtask_key,
+                    "error": str(e),
+                }
+            )
+
+    return results
