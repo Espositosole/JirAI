@@ -1,5 +1,19 @@
 import unittest
 from unittest.mock import MagicMock, patch
+import sys
+import types
+
+# Provide a dummy nest_asyncio module for imports
+sys.modules.setdefault('nest_asyncio', types.SimpleNamespace(apply=lambda: None))
+class _DummyBaseModel:
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+sys.modules.setdefault('pydantic', types.SimpleNamespace(BaseModel=_DummyBaseModel))
+sys.modules.setdefault('browser_use', types.SimpleNamespace(Agent=object, Controller=object))
+sys.modules.setdefault('langchain_openai', types.SimpleNamespace(ChatOpenAI=object))
+sys.modules.setdefault('openai', types.SimpleNamespace(RateLimitError=Exception))
 
 import jira_writer
 

@@ -107,7 +107,12 @@ def parse_agent_logs(
             )
             logger.info(f"[PARSE] Found successful task completion indicator")
 
-        elif "❌ Task failed" in log_line or "Task execution failed" in log_line:
+        elif (
+            "❌ Task failed" in log_line
+            or "Task execution failed" in log_line
+            or "❌ Task completed without success" in log_line
+            or "Task completed without success" in log_line
+        ):
             task_failed = True
             results.append(
                 StepResult(
