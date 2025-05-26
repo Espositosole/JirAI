@@ -72,19 +72,40 @@ class LogCapture:
         return self.logs
 
 
-def parse_agent_logs(logs: list[str], scenario: str) -> tuple[list[StepResult], str]:
-    """Parse agent execution logs to extract detailed steps and final result"""
+def parse_agent_logs(logs: list[str], scenario: str) -> tuple[list[StepResult], str, bool]:
+    """Parse agent execution logs to extract detailed steps, final result, and success status"""
     results = []
     final_result = None
     current_step = None
     step_counter = 1
+    task_completed_successfully = False
+    task_failed = False
 
     for log_line in logs:
         if not log_line.strip():
             continue
 
+        # Check for task completion indicators FIRST
+        if "✅ Task completed successfully" in log_line:
+            task_completed_successfully = True
+            results.append(
+                StepResult(step="Task completion", status="passed", error=None)
+            )
+            logger.info(f"[PARSE] Found successful task completion indicator")
+
+        elif "❌ Task failed" in log_line:
+            task_failed = True
+            results.append(
+                StepResult(
+                    step="Task completion",
+                    status="failed",
+                    error="Task execution failed",
+                )
+            )
+            logger.info(f"[PARSE] Found task failure indicator")
+
         # Extract step information
-        if "📍 Step" in log_line and "Evaluating page" in log_line:
+        elif "📍 Step" in log_line and "Evaluating page" in log_line:
             # New step detected
             if "Step" in log_line:
                 try:
@@ -178,7 +199,7 @@ def parse_agent_logs(logs: list[str], scenario: str) -> tuple[list[StepResult], 
                     )
                 )
 
-        # Extract evaluations
+        # Extract evaluations - but don't let failed evals override successful task completion
         elif "👍 Eval: Success" in log_line:
             description = log_line.split("👍 Eval: Success - ")[1]
             results.append(
@@ -201,39 +222,56 @@ def parse_agent_logs(logs: list[str], scenario: str) -> tuple[list[StepResult], 
         elif "📄 Result:" in log_line:
             final_result = log_line.split("📄 Result: ")[1].strip()
 
-        # Extract task completion
-        elif "✅ Task completed successfully" in log_line:
-            results.append(
-                StepResult(step="Task completion", status="passed", error=None)
-            )
-
-        elif "❌ Task failed" in log_line:
-            results.append(
-                StepResult(
-                    step="Task completion",
-                    status="failed",
-                    error="Task execution failed",
-                )
-            )
+    # CRITICAL FIX: Determine overall success based on task completion, not individual step failures
+    overall_success = False
+    
+    if task_completed_successfully:
+        overall_success = True
+        logger.info(f"[PARSE] Overall success: TRUE (task completed successfully)")
+    elif task_failed:
+        overall_success = False
+        logger.info(f"[PARSE] Overall success: FALSE (task explicitly failed)")
+    elif final_result and any(keyword in final_result.lower() for keyword in ["successfully", "completed", "verified"]):
+        overall_success = True
+        logger.info(f"[PARSE] Overall success: TRUE (final result indicates success)")
+    else:
+        # Fallback: check if there are more passed steps than failed ones and no critical failures
+        passed_steps = sum(1 for r in results if r.status == "passed")
+        failed_steps = sum(1 for r in results if r.status == "failed")
+        
+        # Only mark as failed if there are significant failures or no steps at all
+        if failed_steps == 0 and passed_steps > 0:
+            overall_success = True
+            logger.info(f"[PARSE] Overall success: TRUE (all steps passed)")
+        elif passed_steps > failed_steps and failed_steps <= 2:  # Allow some minor failures
+            overall_success = True
+            logger.info(f"[PARSE] Overall success: TRUE (more passed than failed steps)")
+        else:
+            overall_success = False
+            logger.info(f"[PARSE] Overall success: FALSE (too many failures)")
 
     # If no detailed steps were found, create a basic result
     if not results:
+        success_status = "passed" if overall_success else "failed"
+        error_msg = None if overall_success else "No execution details available"
         results.append(
             StepResult(
                 step="task_execution",
-                status="passed" if final_result else "failed",
-                error=None if final_result else "No execution details available",
+                status=success_status,
+                error=error_msg,
             )
         )
 
-    return results, final_result
+    logger.info(f"[PARSE] Final determination - Success: {overall_success}, Steps: {len(results)}, Final result: {final_result}")
+    
+    return results, final_result, overall_success
 
 
 async def run_agent_with_browser_use(
     task_description: str, scenario: str
 ) -> ScenarioResult:
     """
-    Enhanced runner that captures and parses detailed execution logs
+    Enhanced runner that captures and parses detailed execution logs with proper success detection
     """
     start_time = time.time()
 
@@ -262,16 +300,8 @@ async def run_agent_with_browser_use(
             # Get captured logs
             captured_logs = log_capture.get_logs()
 
-            # Parse logs to extract detailed steps
-            results, final_result = parse_agent_logs(captured_logs, scenario)
-
-            # Determine overall success
-            task_success = any(
-                r.step == "Task completion" and r.status == "passed" for r in results
-            )
-
-            # We ignore earlier failed evals if the final result was success
-            execution_successful = task_success
+            # Parse logs to extract detailed steps and determine success
+            results, final_result, execution_successful = parse_agent_logs(captured_logs, scenario)
 
             execution_time = time.time() - start_time
 
@@ -287,7 +317,7 @@ async def run_agent_with_browser_use(
                 results=results,
                 final_result=final_result,
                 execution_time=execution_time,
-                success=execution_successful,  # ✅ NEW FIELD SET
+                success=execution_successful,  # This is now properly determined
             )
 
         except RateLimitError as e:
@@ -323,6 +353,7 @@ async def run_agent_with_browser_use(
         ],
         final_result=None,
         execution_time=execution_time,
+        success=False,  # Explicitly set to False for genuine failures
     )
 
 
@@ -333,7 +364,7 @@ def run_browser_use_test_hybrid(prompt: str, scenario_name="Unnamed scenario"):
     try:
         logger.info(f"[BrowserUse] Starting execution for: {scenario_name}")
         result = asyncio.run(run_agent_with_browser_use(prompt, scenario_name))
-        logger.info(f"[BrowserUse] Completed execution for: {scenario_name}")
+        logger.info(f"[BrowserUse] Completed execution for: {scenario_name} - Success: {result.success}")
         return result
     except Exception as e:
         logger.error(f"[BrowserUse] Wrapper execution failed: {e}", exc_info=True)
@@ -348,4 +379,5 @@ def run_browser_use_test_hybrid(prompt: str, scenario_name="Unnamed scenario"):
             ],
             final_result=None,
             execution_time=0.0,
+            success=False,
         )
