@@ -55,7 +55,6 @@ def run_test_steps(steps, scenario="Unnamed scenario"):
                     found_items = page.locator(
                         ".cart_item .inventory_item_name"
                     ).all_text_contents()
-                    print(f"[DEBUG] Cart contains: {found_items}")
                     for item in expected_items:
                         assert item in found_items, f"'{item}' not found in cart"
 

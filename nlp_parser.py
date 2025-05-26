@@ -48,7 +48,6 @@ If the story doesn't describe test flows clearly, invent 2–3 possible flows th
             temperature=0.2,
         )
         content = response.choices[0].message.content
-        print("\n[DEBUG] GPT Response:\n", content)
 
         match = re.search(r"```json\s*(\[.*?\])\s*```", content, re.DOTALL)
         if not match:
