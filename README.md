@@ -65,7 +65,8 @@ The agent stores generated flows locally, executes them with `browser-use` once 
 ## Running Tests
 Unit tests are provided and can be run with `pytest`:
 ```bash
-pytest -q
+pip install pytest
+pytest tests/
 ```
 
 ## Next Steps
